@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="c21846b2-d828-45e8-9cd0-cc5e19b417d1" ChangeDateTime="11/04/2015 17:02:29">
+    <Property Name="ElementName" Value="[dbo].[FK_Rating_Haikus]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Haikus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Haikus_Users]" />
+  </Operation>
+</Operations>

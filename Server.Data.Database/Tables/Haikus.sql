@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Haikus]
+(
+	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[Text] NVARCHAR(MAX) NOT NULL,
+	[UserId] BIGINT NOT NULL,
+	[IsDeleted] BIT DEFAULT 0,
+    CONSTRAINT [FK_Haikus_Users] FOREIGN KEY ([UserId]) REFERENCES [Users]([Id])
+)

@@ -1,0 +1,5 @@
+D:\HaikusApp\Server.Data.Database\bin\Debug\Server.Data.Database.dacpac
+D:\HaikusApp\Server.Data.Database\bin\Debug\Server.Data.Database.dll
+D:\HaikusApp\Server.Data.Database\bin\Debug\Server.Data.Database.pdb
+D:\HaikusApp\Server.Data.Database\obj\Debug\Server.Data.Database.dll
+D:\HaikusApp\Server.Data.Database\obj\Debug\Server.Data.Database.pdb

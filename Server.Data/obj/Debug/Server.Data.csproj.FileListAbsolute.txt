@@ -1,0 +1,15 @@
+D:\HaikusApp\Server.Data\obj\Debug\Server.Data.csprojResolveAssemblyReference.cache
+D:\HaikusApp\Server.Data\bin\Debug\Server.Data.dll.config
+D:\HaikusApp\Server.Data\bin\Debug\Server.Data.dll
+D:\HaikusApp\Server.Data\bin\Debug\Server.Data.pdb
+D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.Unity.dll
+D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.Unity.xml
+D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+D:\HaikusApp\Server.Data\obj\Debug\Server.Data.dll
+D:\HaikusApp\Server.Data\obj\Debug\Server.Data.pdb

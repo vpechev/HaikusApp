@@ -1,0 +1,10 @@
+D:\VisualizationService\app\Server.Logging\bin\Release\NLog.config
+D:\VisualizationService\app\Server.Logging\bin\Release\Server.Logging.dll
+D:\VisualizationService\app\Server.Logging\bin\Release\Server.Logging.pdb
+D:\VisualizationService\app\Server.Logging\bin\Release\Newtonsoft.Json.dll
+D:\VisualizationService\app\Server.Logging\bin\Release\NLog.dll
+D:\VisualizationService\app\Server.Logging\bin\Release\Newtonsoft.Json.xml
+D:\VisualizationService\app\Server.Logging\bin\Release\NLog.xml
+D:\VisualizationService\app\Server.Logging\obj\Release\Server.Logging.csprojResolveAssemblyReference.cache
+D:\VisualizationService\app\Server.Logging\obj\Release\Server.Logging.dll
+D:\VisualizationService\app\Server.Logging\obj\Release\Server.Logging.pdb

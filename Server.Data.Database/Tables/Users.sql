@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Users]
+(
+	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[Username] NVARCHAR(50) NOT NULL,
+	[PublishCode] NVARCHAR(MAX) NOT NULL,
+	[IsDeleted] BIT DEFAULT 0
+)
