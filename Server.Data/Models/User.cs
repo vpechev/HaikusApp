@@ -13,5 +13,6 @@ namespace Server.Data.Models
         public string PublishCode { get; set; }
         public IList<long> BlockedUserIds { get; set; }
         public IList<Haiku> Haikus { get; set; }
+        public long Rating { get; set; }
     }
 }

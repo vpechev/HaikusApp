@@ -31,14 +31,8 @@ namespace Server.Data.Repositories
             get { throw new NotImplementedException(); }
         }
 
-        public override string TableName
-        {
-            get { return "Users"; }
-        }
+        public override string TableName { get { return "Users"; } }
 
-        public override string TableColumns
-        {
-            get { return EntityColumnsConstants.UserColumns; }
-        }
+        public override string TableColumns { get { return EntityColumnsConstants.UserColumns; } }
     }
 }

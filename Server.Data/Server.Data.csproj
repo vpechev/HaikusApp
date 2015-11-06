@@ -79,6 +79,7 @@
     <Compile Include="Sql\EntityColumnsConstants.cs" />
     <Compile Include="Sql\InsertStatements.cs" />
     <Compile Include="Sql\SelectStatements.cs" />
+    <Compile Include="Sql\TableNamesConstants.cs" />
     <Compile Include="Sql\UpdateStatements.cs" />
     <Compile Include="Utils\PublishCodeEncrypter.cs" />
   </ItemGroup>

@@ -31,14 +31,8 @@ namespace Server.Data.Repositories
             get { throw new NotImplementedException(); }
         }
 
-        public override string TableName
-        {
-            get { return "Haikus"; }
-        }
+        public override string TableName { get { return "Haikus"; } }
 
-        public override string TableColumns
-        {
-            get { return EntityColumnsConstants.HaikuColumns; }
-        }
+        public override string TableColumns { get { return EntityColumnsConstants.HaikuColumns; } }
     }
 }

@@ -7,4 +7,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[FK_Haikus_Users]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="131af19f-a1b8-4eca-9697-ca1f1507f30a" ChangeDateTime="11/06/2015 06:37:00">
+    <Property Name="ElementName" Value="[dbo].[Haikus].[IsDeleted]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Haikus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Date" />
+  </Operation>
 </Operations>

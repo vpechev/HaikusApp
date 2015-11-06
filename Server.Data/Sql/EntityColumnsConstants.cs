@@ -10,9 +10,9 @@ namespace Server.Data.Sql
     {
         public const string UserColumns = "[Username], [PublishCode], [IsDeleted]";
 
-        public const string HaikuColumns = "[Text], [UserId], [IsDeleted]";
+        public const string HaikuColumns = "[Text], [UserId], [Date], [IsDeleted]";
         
-        public const string RatingColumns = "[Value], [HaikuId], [IsDeleted]";
+        public const string RatingColumns = "[Value], [HaikuId], [UserId], [IsDeleted]";
 
     }
 }

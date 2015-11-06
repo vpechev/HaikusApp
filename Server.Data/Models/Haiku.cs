@@ -12,5 +12,6 @@ namespace Server.Data.Models
         public string Text { get; set; }
         public long UserId { get; set; }
         public IList<Rating> Ratings { get; set; }
+        public DateTime PublishDate { get; set; }
     }
 }

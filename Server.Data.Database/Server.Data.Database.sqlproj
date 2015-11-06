@@ -64,6 +64,7 @@
     <Build Include="Tables\Haikus.sql" />
     <Build Include="Tables\Ratings.sql" />
     <Build Include="Tables\dbo.SaltForUser.sql" />
+    <Build Include="Tables\BlockedUsers.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Server.Data.Database.refactorlog" />
