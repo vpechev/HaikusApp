@@ -14,4 +14,46 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Date" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="5fc07b31-641d-4c7d-8518-a64c4a998649" ChangeDateTime="11/09/2015 08:41:23">
+    <Property Name="ElementName" Value="[dbo].[Haikus].[IscCmplaint]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Haikus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsCmplaint" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1c08e22f-452b-4338-aee4-0c2e93621f58" ChangeDateTime="11/09/2015 08:41:29">
+    <Property Name="ElementName" Value="[dbo].[Haikus].[IsCmplaint]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Haikus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsComplaint" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9bbf5d50-6178-4b91-a6d5-8c2ccf3eeb32" ChangeDateTime="11/10/2015 11:57:02">
+    <Property Name="ElementName" Value="[dbo].[Haikus].[Rating]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Haikus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ActualRating" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0240748d-afeb-483c-9aa2-8f2dd4c7590c" ChangeDateTime="11/10/2015 15:08:09">
+    <Property Name="ElementName" Value="[dbo].[Users].[ActualRating]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RatingValue" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b8f7e1bc-ece3-48af-a2b6-6139a6086865" ChangeDateTime="11/10/2015 15:08:38">
+    <Property Name="ElementName" Value="[dbo].[Haikus].[ActualRating]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Haikus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RatingValue" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="24b3b2de-56ff-4fba-ac8c-0d732b8643fa" ChangeDateTime="11/10/2015 15:09:06">
+    <Property Name="ElementName" Value="[dbo].[Users].[RatingCount]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RatersCount" />
+  </Operation>
 </Operations>

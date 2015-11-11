@@ -1,4 +1,5 @@
 ﻿using HaikusApp.Controllers.BaseClasses;
+using HaikusApp.Exceptions.Filters;
 using Server.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,9 @@ using System.Web.Http;
 
 namespace HaikusApp.Controllers
 {
+    [CustomExceptionFilter]
     public class HaikusController : BaseController<Haiku>
     {
+
     }
 }

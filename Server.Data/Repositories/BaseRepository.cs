@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Dapper;
 using Server.Data.Extensions;
 using System.Configuration;
+using Server.Data.Enums;
+using Server.Data.Utils;
 
 namespace Server.Data.Repositories
 {
@@ -44,52 +46,30 @@ namespace Server.Data.Repositories
         #endregion
 
         #region CRUD Operations
-        //public virtual T GetProjection(long id)
-        //{
-        //    T res = _dbConnection.Query<T>(SelectByIdQuery, new { Id = id }).FirstOrDefault<T>();
-        //    if (res == null)
-        //        throw new KeyNotFoundException();
+        public virtual T Get(long id)
+        {
+            T res = _dbConnection.Query<T>(SelectByIdQuery, new { Id = id }).FirstOrDefault<T>();
+            if (res == null)
+                throw new KeyNotFoundException();
 
-        //    return res;
-        //}
+            return res;
+        }
 
-        //public virtual T GetFull(long id)
-        //{
-        //    return this.GetProjection(id);
-        //}
+        public virtual IList<T> Get(int skipCount, int takeCount, string orderType = null, SortingOrder sortingOrder = SortingOrder.ASC)
+        {
+            string orderValue;
+            try
+            {
+                orderValue = FindProperty(typeof(T), orderType);
+            }
+            catch (ArgumentNullException)
+            {
+                orderValue = "Id";
+                //throw new ArgumentException("The property does not exist", e);
+            }
 
-        //public virtual IList<T> Get()
-        //{
-        //    IList<T> res = _dbConnection.Query<T>(SelectAllQuery).ToList();
-
-        //    return res;
-        //}
-
-        //public virtual IList<T> GetFull()
-        //{
-        //    return this.Get();
-        //}
-
-        //public virtual IList<T> GetFull(int offsetCount, int entitiesCount, string orderType = null, SortingOrder sortingOrder = SortingOrder.ASC)
-        //{
-        //    return this.GetProjection(offsetCount, entitiesCount, orderType);
-        //}
-
-        //public virtual IList<T> GetProjection(int offsetCount, int entitiesCount, string orderType = null, SortingOrder sortingOrder = SortingOrder.ASC)
-        //{
-        //    string orderValue;
-        //    try
-        //    {
-        //        orderValue = FindProperty(typeof(T), orderType);
-        //    }
-        //    catch (ArgumentNullException)
-        //    {
-        //        orderValue = "Id";
-        //        //throw new ArgumentException("The property does not exist", e);
-        //    }
-
-        //    return DBConnection.Query<T>(SelectAllWithPaging(orderValue, sortingOrder.ToString()), new { UserId = this.UserId, OffsetCount = offsetCount, FetchedElements = entitiesCount }).ToList();
-        //}
+            return DBConnection.Query<T>(SelectAllWithPaging(orderValue, sortingOrder.ToString()), new { UserId = this.UserId, OffsetCount = skipCount, FetchedElements = takeCount }).ToList();
+        }
 
         public abstract T Add(T entity);
 
@@ -107,6 +87,25 @@ namespace Server.Data.Repositories
         {
             if (entity == null)
                 throw new KeyNotFoundException();
+        }
+
+        protected Exception CheckSqlException(SqlException sqlException)
+        {
+            switch (sqlException.Number)
+            {
+                case Sql.ErrorCodesConstants.SqlNotAuthorizedErrorCode: throw new UnauthorizedAccessException(sqlException.Message);                //100_004
+                default: throw new Exception(sqlException.Message, sqlException);
+            }
+        }
+
+        private bool ValudatePublishCode(string code)
+        {
+            string salt = DBConnection.Query<string>(SelectSaltByUserIdQuery, new { UserId = UserId }).First();
+            string hashedCode = PublishCodeEncrypterPasswordEncrypter.GenerateSHA256Hash(code, salt);
+            string originalPublishCode = DBConnection.Query<string>(SelectPublishCodeByUserIdQuery, new {Id = UserId}).First();
+            if (originalPublishCode.Equals(hashedCode))
+                return true;
+            throw new UnauthorizedAccessException("invalid publish code");
         }
 
         //private static string GetQueryWithPaging(string orderType)
@@ -142,15 +141,10 @@ namespace Server.Data.Repositories
             }
         }
 
-        //public string SelectAllFullWithPaging(string orderType, string sortingOrder)
-        //{
-        //    return SelectAllFullQuery.ReplaceOrderTypeValue(orderType).ReplaceSortingOrder(sortingOrder);
-        //}
-
-        //public string SelectAllWithPaging(string orderType, string sortingOrder)
-        //{
-        //    return SelectAllQuery.ReplaceOrderTypeValue(orderType).ReplaceSortingOrder(sortingOrder);
-        //}
+        public string SelectAllWithPaging(string orderType, string sortingOrder)
+        {
+            return SelectAllQuery.ReplaceOrderTypeValue(orderType).ReplaceSortingOrder(sortingOrder);
+        }
 
         #region Query properties
         public abstract string InsertQuery { get; }
@@ -163,6 +157,8 @@ namespace Server.Data.Repositories
         public virtual string DeleteByIdQuery { get { return Sql.DeleteStatements.DeleteByIdQuery.ReplaceTableName(TableName); } }
         public abstract string TableName { get; }
         public abstract string TableColumns { get; }
+        private string SelectSaltByUserIdQuery { get { return Sql.SelectStatements.SelectSaltByUserId; } }
+        private string SelectPublishCodeByUserIdQuery { get { return Sql.SelectStatements.SelectPublishCodeByUserId; } }
         public long UserId { get { return _userId; } private set { _userId = value; } }
         public IDbConnection DBConnection { get { return _dbConnection; } }
         #endregion

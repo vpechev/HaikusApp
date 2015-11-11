@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Dapper.cs" />
     <Compile Include="DI\DataObjectsContainer.cs" />
+    <Compile Include="Enums\SortingOrder.cs" />
     <Compile Include="Extensions\QueryExtensionsMethods.cs" />
     <Compile Include="Managers\DataManager.cs" />
     <Compile Include="Models\BaseClasses\Identifiable.cs" />
@@ -73,13 +74,14 @@
     <Compile Include="Repositories\IBaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBaseRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Sql\Constants.cs" />
+    <Compile Include="Sql\Constants\Constants.cs" />
+    <Compile Include="Sql\Constants\ErrorCodesConstants.cs" />
     <Compile Include="Sql\DeleteStatements.cs" />
-    <Compile Include="Sql\EntityAliasesConstants.cs" />
-    <Compile Include="Sql\EntityColumnsConstants.cs" />
+    <Compile Include="Sql\Constants\EntityAliasesConstants.cs" />
+    <Compile Include="Sql\Constants\EntityColumnsConstants.cs" />
     <Compile Include="Sql\InsertStatements.cs" />
     <Compile Include="Sql\SelectStatements.cs" />
-    <Compile Include="Sql\TableNamesConstants.cs" />
+    <Compile Include="Sql\Constants\TableNamesConstants.cs" />
     <Compile Include="Sql\UpdateStatements.cs" />
     <Compile Include="Utils\PublishCodeEncrypter.cs" />
   </ItemGroup>

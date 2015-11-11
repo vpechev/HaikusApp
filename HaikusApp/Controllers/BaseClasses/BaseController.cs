@@ -49,7 +49,7 @@ namespace HaikusApp.Controllers.BaseClasses
             throw new NotImplementedException();
         }
 
-        public T Post(T entity)
+        public virtual T Post(T entity)
         {
             IBaseRepository<T> repo = this.GetRepository();
             return repo.Add(entity);

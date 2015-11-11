@@ -1,0 +1,33 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[ComplaintForHaikus] (Table)
+       [dbo].[Haikus] (Table)
+       [dbo].[Rating] (Table)
+       [dbo].[SaltForUser] (Table)
+       [dbo].[SaltForUser].[IX_SaltForUser_UserId] (Index)
+       [dbo].[Users] (Table)
+       Default Constraint: unnamed constraint on [dbo].[ComplaintForHaikus] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Haikus] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Haikus] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Haikus] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Rating] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Users] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Users] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Users] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Users] (Default Constraint)
+       [dbo].[FK_Haikus_Users] (Foreign Key)
+       [dbo].[FK_Ratings_Haikus] (Foreign Key)
+       [dbo].[FK_Ratings_Users] (Foreign Key)
+       [dbo].[FK_SaltForUser_Users] (Foreign Key)
+
+** Supporting actions

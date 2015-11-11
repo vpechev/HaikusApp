@@ -200,6 +200,8 @@
     <Compile Include="Controllers\HaikusController.cs" />
     <Compile Include="Controllers\Interfaces\IBaseController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Exceptions\Filters\CustomExceptionFilterAttribute.cs" />
+    <Compile Include="Exceptions\MissingInputDataException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

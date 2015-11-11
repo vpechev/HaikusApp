@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Server.Data.Models;
 using Server.Data.Sql;
+using Server.Data.Managers;
 
 namespace Server.Data.Repositories
 {
@@ -13,23 +14,36 @@ namespace Server.Data.Repositories
     {
         public override Haiku Add(Haiku entity)
         {
-            throw new NotImplementedException();
+            var entityId = DBConnection.Query<long>(InsertQuery, new { Text = entity.Text, UserId = UserId, PublishDate = entity.PublishDate, IsDeleted = entity.IsDeleted }).FirstOrDefault();
+            entity.Id = entityId;
+            return entity;
         }
 
         public override Haiku Update(Haiku entity)
         {
-            throw new NotImplementedException();
+            DBConnection.Execute(UpdateByIdQuery, new { Text = entity.Text, UserId = UserId, PublishDate = entity.PublishDate, IsDeleted = entity.IsDeleted });
+            
+            return entity;
         }
 
-        public override string InsertQuery
+        public Haiku UpdateHaikuRating(long haikuId, int rating)
         {
-            get { throw new NotImplementedException(); }
+            DBConnection.Execute(UpdateRatingByIdQuery, new { UserId = UserId, Id = haikuId, Value = rating });
+            return this.Get(haikuId);
         }
 
-        public override string UpdateByIdQuery
+        public void AddHaikuCompliant(long haikuId)
         {
-            get { throw new NotImplementedException(); }
+            DBConnection.Execute(UpdateCompliantByHaikuIdQuery, new { UserId = UserId, Id = haikuId});
         }
+
+        public override string InsertQuery { get { return Sql.InsertStatements.InsertHaikuQuery; } }
+
+        public override string UpdateByIdQuery { get { return Sql.UpdateStatements.UpdateHaikuByIdQuery; } }
+
+        public string UpdateRatingByIdQuery { get { return Sql.UpdateStatements.UpdateHaikuRatingByIdQuery; } }
+
+        public string UpdateCompliantByHaikuIdQuery { get { return Sql.UpdateStatements.UpdateCompliantByHaikuIdQuery; } }
 
         public override string TableName { get { return "Haikus"; } }
 

@@ -5,5 +5,7 @@
 	[UserId] BIGINT NOT NULL,
 	[Date] DATETIME NOT NULL ,
     [IsDeleted] BIT NOT NULL DEFAULT 0, 
+    [RatingValue] BIGINT NOT NULL DEFAULT 0, 
+    [RatersCount] BIGINT NOT NULL DEFAULT 0, 
     CONSTRAINT [FK_Haikus_Users] FOREIGN KEY ([UserId]) REFERENCES [Users]([Id])
 )

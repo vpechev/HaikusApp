@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[ComplaintForHaikus]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[HaikuId] BIGINT NOT NULL, 
+	[Date] DATETIME NOT NULL DEFAULT GETDATE()
+)

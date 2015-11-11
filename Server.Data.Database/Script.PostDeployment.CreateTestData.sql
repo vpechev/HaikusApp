@@ -21,3 +21,9 @@ INSERT INTO [dbo].[Haikus] ([Text], [UserId]) VALUES ('some dummy dummy haiku 6'
 
 
 
+--insert custom error messages
+	BEGIN TRY
+		EXEC sp_addmessage 100000, 16, N'Not authorized';
+	END TRY
+	BEGIN CATCH
+	END CATCH

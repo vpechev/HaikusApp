@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{3564f2ea-3239-42c1-b385-f75f02b9c5ca}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -64,7 +64,7 @@
     <Build Include="Tables\Haikus.sql" />
     <Build Include="Tables\Ratings.sql" />
     <Build Include="Tables\dbo.SaltForUser.sql" />
-    <Build Include="Tables\BlockedUsers.sql" />
+    <Build Include="Tables\ComplaintForHaikus.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Server.Data.Database.refactorlog" />
