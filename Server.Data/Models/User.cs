@@ -29,5 +29,6 @@ namespace Server.Data.Models
             }
             set { this._actualRating = value; }             
         }
+        public bool IsVip { get; set; }
     }
 }

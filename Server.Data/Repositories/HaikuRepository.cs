@@ -14,27 +14,34 @@ namespace Server.Data.Repositories
     {
         public override Haiku Add(Haiku entity)
         {
-            var entityId = DBConnection.Query<long>(InsertQuery, new { Text = entity.Text, UserId = UserId, PublishDate = entity.PublishDate, IsDeleted = entity.IsDeleted }).FirstOrDefault();
+            long userId = base.GetUserIdByPublishCode(PublishCode);
+            var entityId = DBConnection.Query<long>(InsertQuery, new { Text = entity.Text, UserId = userId, PublishDate = entity.PublishDate, IsDeleted = entity.IsDeleted }).FirstOrDefault();
             entity.Id = entityId;
             return entity;
         }
 
         public override Haiku Update(Haiku entity)
         {
-            DBConnection.Execute(UpdateByIdQuery, new { Text = entity.Text, UserId = UserId, PublishDate = entity.PublishDate, IsDeleted = entity.IsDeleted });
+            long userId = base.GetUserIdByPublishCode(PublishCode);
+            DBConnection.Execute(UpdateByIdQuery, new { Text = entity.Text, UserId = userId, PublishDate = entity.PublishDate, IsDeleted = entity.IsDeleted });
             
             return entity;
         }
 
         public Haiku UpdateHaikuRating(long haikuId, int rating)
         {
-            DBConnection.Execute(UpdateRatingByIdQuery, new { UserId = UserId, Id = haikuId, Value = rating });
+            DBConnection.Execute(UpdateRatingByIdQuery, new { Id = haikuId, Value = rating });
             return this.Get(haikuId);
         }
 
         public void AddHaikuCompliant(long haikuId)
         {
-            DBConnection.Execute(UpdateCompliantByHaikuIdQuery, new { UserId = UserId, Id = haikuId});
+            DBConnection.Execute(UpdateCompliantByHaikuIdQuery, new { Id = haikuId});
+        }
+
+        public void DeleteAllHaikusByUserId(long userId)
+        {
+            DBConnection.Execute(DeleteHaikusByUserIdQuery, new { UserId = userId });
         }
 
         public override string InsertQuery { get { return Sql.InsertStatements.InsertHaikuQuery; } }
@@ -44,6 +51,8 @@ namespace Server.Data.Repositories
         public string UpdateRatingByIdQuery { get { return Sql.UpdateStatements.UpdateHaikuRatingByIdQuery; } }
 
         public string UpdateCompliantByHaikuIdQuery { get { return Sql.UpdateStatements.UpdateCompliantByHaikuIdQuery; } }
+
+        public string DeleteHaikusByUserIdQuery { get { return Sql.DeleteStatements.DeleteAllHaikusByUserIdWithRatingRecalculatingQuery; } }
 
         public override string TableName { get { return "Haikus"; } }
 

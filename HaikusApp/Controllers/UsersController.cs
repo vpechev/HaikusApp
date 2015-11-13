@@ -16,13 +16,10 @@ namespace HaikusApp.Controllers
     [CustomExceptionFilter]
     public class UsersController : BaseController<User>
     {
-        public override User Post(User entity)
+        public User Post(User entity)
         {
             IBaseRepository<User> repo = new UserRepository();
-            if (entity.Username != null && entity.PublishCode != null)
-                return repo.Add(entity);
-            else
-                throw new MissingInputDataException();
+            return null;
         }
     }
 }

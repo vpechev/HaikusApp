@@ -4,7 +4,7 @@
 	[Username] NVARCHAR(50) NOT NULL,
 	[PublishCode] NVARCHAR(MAX) NOT NULL,
 	[IsDeleted] BIT DEFAULT 0 NOT NULL, 
-    [IsVIP] BIT NOT NULL DEFAULT 0, 
+    [IsVip] BIT NOT NULL DEFAULT 0, 
     [RatingValue] BIGINT NOT NULL DEFAULT 0, 
     [RatersCount] BIGINT NOT NULL DEFAULT 0
 )

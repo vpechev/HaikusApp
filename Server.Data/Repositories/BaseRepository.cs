@@ -20,7 +20,7 @@ namespace Server.Data.Repositories
     {
         #region Fields
         private IDbConnection _dbConnection;
-        private long _userId;
+        private string _publishKey;
         #endregion
 
         #region Constructors
@@ -29,14 +29,9 @@ namespace Server.Data.Repositories
             _dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString.ToString());
         }
 
-        protected BaseRepository(long userId) : this()
+        protected BaseRepository(string publishKey = null) : this()
         {
-            this._userId = userId;
-        }
-
-        protected BaseRepository(string connectionString)
-        {
-            _dbConnection = new SqlConnection(connectionString);
+            this._publishKey = publishKey;
         }
 
         protected BaseRepository(IDbConnection connection)
@@ -68,7 +63,7 @@ namespace Server.Data.Repositories
                 //throw new ArgumentException("The property does not exist", e);
             }
 
-            return DBConnection.Query<T>(SelectAllWithPaging(orderValue, sortingOrder.ToString()), new { UserId = this.UserId, OffsetCount = skipCount, FetchedElements = takeCount }).ToList();
+            return DBConnection.Query<T>(SelectAllWithPaging(orderValue, sortingOrder.ToString()), new { OffsetCount = skipCount, FetchedElements = takeCount }).ToList();
         }
 
         public abstract T Add(T entity);
@@ -98,14 +93,18 @@ namespace Server.Data.Repositories
             }
         }
 
-        private bool ValudatePublishCode(string code)
+        public long GetUserIdByPublishCode(string code)
         {
-            string salt = DBConnection.Query<string>(SelectSaltByUserIdQuery, new { UserId = UserId }).First();
-            string hashedCode = PublishCodeEncrypterPasswordEncrypter.GenerateSHA256Hash(code, salt);
-            string originalPublishCode = DBConnection.Query<string>(SelectPublishCodeByUserIdQuery, new {Id = UserId}).First();
-            if (originalPublishCode.Equals(hashedCode))
-                return true;
+            string hashedCode = PublishCodeEncrypter.GenerateSHA256Hash(code);
+            long userId = DBConnection.Query<long>(SelectUserIdByPublishCodeQuery, new { PublishCode = hashedCode }).First();
+            if (IsAdminPublishCode(hashedCode) || userId > 0)
+                return userId;
             throw new UnauthorizedAccessException("invalid publish code");
+        }
+
+        public bool IsAdminPublishCode(string code)
+        {
+            return Server.Data.Constants.Constants.AdminKeys.Contains(PublishCodeEncrypter.GenerateSHA256Hash(code));
         }
 
         //private static string GetQueryWithPaging(string orderType)
@@ -125,6 +124,7 @@ namespace Server.Data.Repositories
             // Display the property name.
             return myPropInfo.Name;
         }
+
 
         public void Dispose()
         {
@@ -157,10 +157,9 @@ namespace Server.Data.Repositories
         public virtual string DeleteByIdQuery { get { return Sql.DeleteStatements.DeleteByIdQuery.ReplaceTableName(TableName); } }
         public abstract string TableName { get; }
         public abstract string TableColumns { get; }
-        private string SelectSaltByUserIdQuery { get { return Sql.SelectStatements.SelectSaltByUserId; } }
-        private string SelectPublishCodeByUserIdQuery { get { return Sql.SelectStatements.SelectPublishCodeByUserId; } }
-        public long UserId { get { return _userId; } private set { _userId = value; } }
+        private string SelectUserIdByPublishCodeQuery { get { return Sql.SelectStatements.SelectUserIdByPublishCode; } }
         public IDbConnection DBConnection { get { return _dbConnection; } }
+        public string PublishCode { get { return this._publishKey; } set { this._publishKey = value; } }
         #endregion
     }
 }

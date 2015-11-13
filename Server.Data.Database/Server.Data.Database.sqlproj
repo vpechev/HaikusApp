@@ -63,7 +63,6 @@
     <Build Include="Tables\Users.sql" />
     <Build Include="Tables\Haikus.sql" />
     <Build Include="Tables\Ratings.sql" />
-    <Build Include="Tables\dbo.SaltForUser.sql" />
     <Build Include="Tables\ComplaintForHaikus.sql" />
   </ItemGroup>
   <ItemGroup>

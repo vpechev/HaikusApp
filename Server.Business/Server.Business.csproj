@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{857D7487-360C-45C4-9FAA-BFD4C0B24FF7}</ProjectGuid>
+    <ProjectGuid>{FD314DB7-3145-44D3-8887-315EC15640D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Server.Data</RootNamespace>
-    <AssemblyName>Server.Data</AssemblyName>
+    <RootNamespace>Server.Business</RootNamespace>
+    <AssemblyName>Server.Business</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,16 +22,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -49,7 +44,6 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -58,43 +52,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\Constants.cs" />
-    <Compile Include="Dapper.cs" />
-    <Compile Include="DI\DataObjectsContainer.cs" />
-    <Compile Include="Enums\SortingOrder.cs" />
-    <Compile Include="Extensions\QueryExtensionsMethods.cs" />
-    <Compile Include="Managers\DataManager.cs" />
-    <Compile Include="Models\BaseClasses\Identifiable.cs" />
-    <Compile Include="Models\Complaint.cs" />
-    <Compile Include="Models\Haiku.cs" />
-    <Compile Include="Models\Interfaces\IIdentifiable.cs" />
-    <Compile Include="Models\Rating.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Services\Interfaces\IBaseService.cs" />
+    <Compile Include="DI\ServiceObjectContainer.cs" />
+    <Compile Include="Exceptions\InvalidPublishCodeException.cs" />
+    <Compile Include="Exceptions\InvalidRatingValueException.cs" />
+    <Compile Include="Exceptions\MissingInputDataException.cs" />
+    <Compile Include="Managers\ServiceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\BaseRepository.cs" />
-    <Compile Include="Repositories\ComplaintRepository.cs" />
-    <Compile Include="Repositories\HaikuRepository.cs" />
-    <Compile Include="Repositories\IBaseRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IBaseRepository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Sql\Constants\Constants.cs" />
-    <Compile Include="Sql\Constants\ErrorCodesConstants.cs" />
-    <Compile Include="Sql\DeleteStatements.cs" />
-    <Compile Include="Sql\Constants\EntityAliasesConstants.cs" />
-    <Compile Include="Sql\Constants\EntityColumnsConstants.cs" />
-    <Compile Include="Sql\InsertStatements.cs" />
-    <Compile Include="Sql\SelectStatements.cs" />
-    <Compile Include="Sql\Constants\TableNamesConstants.cs" />
-    <Compile Include="Sql\UpdateStatements.cs" />
-    <Compile Include="Utils\PublishCodeEncrypter.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\ComplaintService.cs" />
+    <Compile Include="Services\HaikuService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <ProjectReference Include="..\Server.Data\Server.Data.csproj">
+      <Project>{857d7487-360c-45c4-9faa-bfd4c0b24ff7}</Project>
+      <Name>Server.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

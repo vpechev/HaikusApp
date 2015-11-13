@@ -28,7 +28,7 @@ namespace Server.Data.Test.IntegrationTests
 
         private void SetUpTestData()
         {
-            chartId = (long)DataManager.GetDataManager().CreateInstance<User>(_userId).Add(RandomDataGenerator.GenerateUser()).Id;
+            chartId = (long)DataManager.GetDataManager().CreateInstance<User>().Add(RandomDataGenerator.GenerateUser()).Id;
 
             _mockUser = new User()
             {
@@ -39,7 +39,7 @@ namespace Server.Data.Test.IntegrationTests
 
         private IBaseRepository<User> InitializeRepo()
         {
-            return DataManager.GetDataManager().CreateInstance<User>(_userId);
+            return DataManager.GetDataManager().CreateInstance<User>();
         }
 
         //[TestMethod]
@@ -116,7 +116,7 @@ namespace Server.Data.Test.IntegrationTests
             }
             catch (KeyNotFoundException)
             {
-                DataManager.GetDataManager().CreateInstance<User>(_userId).Remove(chartId);
+                //DataManager.GetDataManager().CreateInstance<User>().Remove(chartId);
             }
 
         }

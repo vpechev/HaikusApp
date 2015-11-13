@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Server.Data.Utils
 {
-    public static class PublishCodeEncrypterPasswordEncrypter
+    public static class PublishCodeEncrypter
     {
         public static string CreateSalt()
         {
@@ -18,12 +18,21 @@ namespace Server.Data.Utils
             return Convert.ToBase64String(buff);
         }
 
-        public static string GenerateSHA256Hash(string input, String salt)
+        //public static string SecurePublishCode(string input, String salt)
+        //{
+        //    return GenerateSHA256Hash(input + salt);
+        //}
+
+        public static string GenerateSHA256Hash(string input)
         {
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(input + salt);
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(input);
             SHA256Managed sha256hashstring = new SHA256Managed();
             byte[] hash = sha256hashstring.ComputeHash(bytes);
             return Encoding.Default.GetString(hash);
         }
+
+
     }
 }
+
+

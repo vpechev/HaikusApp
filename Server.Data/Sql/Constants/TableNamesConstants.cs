@@ -11,6 +11,5 @@ namespace Server.Data.Sql
         public const string HaikuTableName = "Haikus";
         public const string UserTableName = "Haikus";
         public const string RatingTableName = "Ratings";
-        public const string SaltForUserTableName = "SaltForUser";
     }
 }

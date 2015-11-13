@@ -8,11 +8,24 @@ namespace Server.Data.Sql
 {
     public class EntityColumnsConstants
     {
-        public const string UserColumns = "[Username], [PublishCode], [IsDeleted], [RatingValue], [RatersCount] ";
+        private const string IdColumnt = ", [Id]";
+
+
+        public const string UserColumns = "[Username], [PublishCode], [IsDeleted], [IsVip], [RatingValue], [RatersCount] ";
         
         public const string HaikuColumns = "[Text], [UserId], [Date], [IsDeleted], [RatingValue], [RatersCount] ";
 
-        public const string RatingColumns = "[Value], [HaikuId], [UserId], [IsDeleted]";
+        public const string RatingColumns = "[Value], [HaikuId], [IsDeleted]";
 
+        public const String ComplaintForHaikusColumns = " [HaikuId], [Date] ";
+        
+
+        public static readonly string UserColumnsWithId = IdColumnt + UserColumns; 
+               
+        public static readonly string HaikuColumnsWithId = IdColumnt + HaikuColumns;
+               
+        public static readonly string RatingColumnsWithId = IdColumnt + RatingColumns;
+               
+        public static readonly String ComplaintForHaikusColumnsWithId = IdColumnt + ComplaintForHaikusColumns; 
     }
 }

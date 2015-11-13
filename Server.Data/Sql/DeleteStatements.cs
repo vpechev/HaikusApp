@@ -12,11 +12,15 @@ namespace Server.Data.Sql
 
         public const string ActualDeleteByIdQuery = "DELETE FROM [dbo].[$TABLENAME] WHERE [Id] = @Id";
 
-        public const string DeleteUserByIdQuery = "UPDATE [dbo].[Users] SET [IsDeleted] = 1 WHERE [Id] = @Id; ";
+        public const string DeleteUserByIdQuery = " UPDATE [dbo].[Users] SET [IsDeleted] = 1 WHERE [Id] = @Id; ";
 
-        public const string DeleteAllHaikusByUserIdQuery = "UPDATE [dbo].[Haikus] SET [IsDeleted] = 1 WHERE [UserId] = @Id; ";
+        public const string DeleteAllHaikusByUserIdWithRatingRecalculatingQuery = @"BEGIN TRAN
+                                                                                    " + DeleteHaikusByUserId + @"
+                                                                                    UPDATE [dbo].[Users] SET [RatingValue] = 0, [RatersCount] = 0 WHERE UserId = @UserId
+                                                                                    COMMIT TRAN";
 
-        public static readonly string DeleteUserWithHaikusByUserId = "BEGIN TRAN" + DeleteUserByIdQuery + DeleteAllHaikusByUserIdQuery + "COMMIT TRAN";
+        private const string DeleteHaikusByUserId = " UPDATE [dbo].[Haikus] SET [IsDeleted] = 1 WHERE [UserId] = @UserId; ";
 
+        public static readonly string DeleteUserWithHaikusByUserId = "BEGIN TRAN" + DeleteUserByIdQuery + DeleteHaikusByUserId + "COMMIT TRAN";
     }
 }

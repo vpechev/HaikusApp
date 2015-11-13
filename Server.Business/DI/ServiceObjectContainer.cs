@@ -1,16 +1,16 @@
 ﻿using Microsoft.Practices.Unity;
+using Server.Business.DI.Interfaces;
+using Server.Business.Services;
 using Server.Data.Models;
-using Server.Data.Repositories;
-using Server.Data.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Data.DI
+namespace Server.Business.DI
 {
-    public static class DataObjectsContainer
+    public class ServiceObjectContainer
     {
         private static IUnityContainer defaultContainer;
         public static IUnityContainer DefaultContainer
@@ -26,9 +26,9 @@ namespace Server.Data.DI
                         WithMappings.FromMatchingInterface,
                         WithName.Default);
 
-                    defaultContainer.RegisterType<IBaseRepository<Haiku>, HaikuRepository>();
-                    defaultContainer.RegisterType<IBaseRepository<User>, UserRepository>();
-                    defaultContainer.RegisterType<IBaseRepository<Complaint>, ComplaintRepository>();
+                    defaultContainer.RegisterType<IBaseService<Haiku>, HaikuService>();
+                    defaultContainer.RegisterType<IBaseService<User>, UserService>();
+                    defaultContainer.RegisterType<IBaseService<Complaint>, ComplaintService>();
                 }
                 return defaultContainer;
             }
@@ -37,7 +37,7 @@ namespace Server.Data.DI
                 if (value != null)
                     defaultContainer = value;
                 else
-                    throw new ArgumentException("the default container is null");
+                    throw new ArgumentException("service default container is null");
             }
         }
     }

@@ -14,17 +14,21 @@ namespace Server.Data.Repositories
     {
         public override User Add(User entity)
         {
-            var salt = PublishCodeEncrypterPasswordEncrypter.CreateSalt();
-            var securedPublishCode = PublishCodeEncrypterPasswordEncrypter.GenerateSHA256Hash(entity.PublishCode, salt);
-            var entityId = DBConnection.Query<long>(InsertQuery, new { Username = entity.Username, PublishCode = securedPublishCode, IsDeleted = entity.IsDeleted, Salt = salt }).FirstOrDefault();
+            var securedPublishCode = PublishCodeEncrypter.GenerateSHA256Hash(entity.PublishCode);
+            var entityId = DBConnection.Query<long>(InsertQuery, new { Username = entity.Username, PublishCode = securedPublishCode, IsDeleted = entity.IsDeleted, IsVip = entity.IsVip }).FirstOrDefault();
             entity.Id = entityId;
             return entity;
         }
 
         public override User Update(User entity)
         {
-            DBConnection.Execute(InsertQuery, new { Username = entity.Username, PublishCode = entity.PublishCode, IsDeleted = entity.IsDeleted });
+            DBConnection.Execute(InsertQuery, new { Username = entity.Username, PublishCode = entity.PublishCode, IsDeleted = entity.IsDeleted, IsVip = entity.IsVip });
             return entity;
+        }
+
+        public void UpdateToVip(long id, bool isVip)
+        {
+            DBConnection.Execute(UpdateVipStatusByIdQuery, new { Id = id, IsVIp = isVip });
         }
 
         public IList<User> GetVIPUsers()
@@ -37,6 +41,7 @@ namespace Server.Data.Repositories
         #region Query properties
         public override string InsertQuery { get { return Sql.InsertStatements.InsertUserQuery; } }
         public override string UpdateByIdQuery { get { return Sql.UpdateStatements.UpdateUserByIdQuery; } }
+        public string UpdateVipStatusByIdQuery { get { return Sql.UpdateStatements.UpdateVipStatusByIdQuery; } }
         public string SelectVIPUsersQuery { get { return Sql.SelectStatements.SelectVIPUsersQuery; } }
         public override string TableName { get { return "Users"; } }
         public override string TableColumns { get { return EntityColumnsConstants.UserColumns; } }

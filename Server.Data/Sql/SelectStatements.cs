@@ -16,7 +16,6 @@ namespace Server.Data.Sql
 
         public static readonly string SelectAllComplaints = "SELECT * FROM [dbo].[Haikus] WHERE [IsComplaint] = 1 AND [IsDeleted] = 0 " + Constants.PagingQuery;
 
-        public static readonly string SelectSaltByUserId = "Select [Salt] FROM [dbo].[" + TableNamesConstants.SaltForUserTableName + " WHERE [UserId] = @Id";
-        public static readonly string SelectPublishCodeByUserId = "Select [PublishCode] FROM [dbo].[" + TableNamesConstants.UserTableName + " WHERE [Id] = @Id";
+        public static readonly string SelectUserIdByPublishCode = "Select [Id] FROM [dbo].[" + TableNamesConstants.UserTableName + " WHERE [PublishCode] = @PublishCode";
     }
 }

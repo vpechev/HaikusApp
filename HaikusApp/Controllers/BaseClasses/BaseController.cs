@@ -1,6 +1,8 @@
 ﻿using HaikusApp.Controllers.Interfaces;
+using Server.Business.DI;
+using Server.Business.DI.Interfaces;
+using Server.Business.Managers;
 using Server.Data.Models.Interfaces;
-using Server.Data.Repositories.Interfaces;
 using Server.Logging;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using Server.Data.Managers;
 
 namespace HaikusApp.Controllers.BaseClasses
 {
@@ -16,7 +17,7 @@ namespace HaikusApp.Controllers.BaseClasses
     {
         #region Delegates
         //private Func<HttpRequestMessage> _getRequest;
-        private Func<long> _gettingUserId;
+        private Func<string> _gettingPublishCode;
         #endregion
 
         #region Constructors
@@ -36,7 +37,7 @@ namespace HaikusApp.Controllers.BaseClasses
 
         public IList<T> Get()
         {
-            IBaseRepository<T> repo = this.GetRepository();
+            IBaseService<T> service = this.GetService();
             //IList<T> results = repo.Get();
             //return results;
             throw new NotImplementedException();
@@ -44,55 +45,58 @@ namespace HaikusApp.Controllers.BaseClasses
 
         public T Get(long id)
         {
-            IBaseRepository<T> repo = this.GetRepository();
+            IBaseService<T> service = this.GetService();
             //return repo.Get(id);
             throw new NotImplementedException();
         }
 
-        public virtual T Post(T entity)
-        {
-            IBaseRepository<T> repo = this.GetRepository();
-            return repo.Add(entity);
-        }
+        //public virtual T Post(T entity)
+        //{
+        //    IBaseService<T> service = this.GetServiceWithPublishCode();
+        //    return service.Add(entity);
+        //}
 
-        public IHttpActionResult Delete(long id)
-        {
-            IBaseRepository<T> repo = this.GetRepository();
-            repo.Remove(id);
-            return Ok();
-        }
+        //public IHttpActionResult Delete(long id)
+        //{
+        //    IBaseService<T> service = this.GetServiceWithPublishCode();
+        //    service.Remove(id);
+        //    return Ok();
+        //}
 
-        public T Put(T entity)
-        {
-            IBaseRepository<T> repo = this.GetRepository();
-            return repo.Update(entity);
-        }
+        //public T Put(T entity)
+        //{
+        //    IBaseService<T> repo = this.GetServiceWithPublishCode();
+        //    return repo.Update(entity);
+        //}
 
-        private long GetUserId()
+        private string GetPasswordCode()
         {
-            long res;
-            bool isSet = Int64.TryParse(this.Request.Headers.GetValues("userId").FirstOrDefault(), out res);
-            if (isSet)
+            string res = this.Request.Headers.GetValues("publishKey").FirstOrDefault();
+            if (res != null)
                 return res;
             throw new UnauthorizedAccessException();
         }
 
-        protected IBaseRepository<T> GetRepository()
+        protected IBaseService<T> GetService()
         {
-            long userId = this.GettingUserId();
-            //return DataManager.CreateInstance<IBaseRepository<T>>(userId);
-            return null;
+            return ServiceManager.GetServiceManager().CreateInstance<T>();
         }
 
-        public Func<long> GettingUserId
+        protected IBaseService<T> GetServiceWithPublishCode()
+        {
+            string publishCode = this.GettingPasswordCode();
+            return ServiceManager.GetServiceManager().CreateInstance<T>(publishCode);
+        }
+
+        public Func<string> GettingPasswordCode
         {
             get
             {
-                if (_gettingUserId == null)
-                    _gettingUserId = () => GetUserId();
-                return _gettingUserId;
+                if (_gettingPublishCode == null)
+                    _gettingPublishCode = () => GetPasswordCode();
+                return _gettingPublishCode;
             }
-            set { _gettingUserId = value; }
+            set { _gettingPublishCode = value; }
         }
 
     }

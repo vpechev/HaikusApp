@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
 using Server.Data.DI;
 using Server.Data.Models.Interfaces;
+using Server.Data.Repositories;
 using Server.Data.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,14 @@ namespace Server.Data.Managers
         private static DataManager _dataManager;
         private DataManager() { }
 
-        public IBaseRepository<T> CreateInstance<T>(long userId) where T : IIdentifiable
+        public BaseRepository<T> CreateInstance<T>() where T : IIdentifiable
         {
-            return DataObjectsContainer.DefaultContainer.Resolve<IBaseRepository<T>>(new ParameterOverride("userId", userId));
+            return DataObjectsContainer.DefaultContainer.Resolve<BaseRepository<T>>();
+        }
+        
+        public BaseRepository<T> CreateInstance<T>(string publishCode) where T : IIdentifiable
+        {
+            return DataObjectsContainer.DefaultContainer.Resolve<BaseRepository<T>>(new ParameterOverride("publishcode", publishCode));
         }
 
         public static DataManager GetDataManager(IUnityContainer container = null)

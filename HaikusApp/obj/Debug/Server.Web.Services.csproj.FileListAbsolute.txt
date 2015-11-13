@@ -75,3 +75,7 @@ D:\HaikusApp\HaikusApp\bin\Microsoft.Practices.Unity.RegistrationByConvention.xm
 D:\HaikusApp\HaikusApp\bin\NLog.xml
 D:\HaikusApp\HaikusApp\bin\Microsoft.Practices.ServiceLocation.pdb
 D:\HaikusApp\HaikusApp\bin\Microsoft.Practices.ServiceLocation.xml
+D:\HaikusApp\HaikusApp\bin\Server.Business.dll
+D:\HaikusApp\HaikusApp\bin\Server.Business.pdb
+D:\HaikusApp\HaikusApp\bin\Microsoft.Practices.Unity.Configuration.dll
+D:\HaikusApp\HaikusApp\bin\Microsoft.Practices.Unity.Configuration.xml

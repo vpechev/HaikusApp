@@ -10,8 +10,13 @@ namespace Server.Data.Sql
     {
         public const string UpdateUserByIdQuery = @"UPDATE [dbo].[Users]
                                                     SET [Username] = @Username,
-                                                    [PublishCode] = @PublishCode
+                                                    [PublishCode] = @PublishCode,
+                                                    [IsVip] = @IsVip
                                                     WHERE [Id] = @Id ";
+
+        public const string UpdateVipStatusByIdQuery = @"UPDATE [dbo].[Users]
+                                                        SET [IsVip] = @IsVip,
+                                                        WHERE [Id] = @Id ";
 
         public const string UpdateHaikuByIdQuery = @"
                                                      BEGIN TRAN
