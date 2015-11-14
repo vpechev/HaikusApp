@@ -35,20 +35,20 @@ namespace HaikusApp.Controllers.BaseClasses
         //    private set { _getRequest = value; }
         //}
 
-        public IList<T> Get()
-        {
-            IBaseService<T> service = this.GetService();
-            //IList<T> results = repo.Get();
-            //return results;
-            throw new NotImplementedException();
-        }
+        //public IList<T> Get()
+        //{
+        //    IBaseService<T> service = this.GetService();
+        //    //IList<T> results = repo.Get();
+        //    //return results;
+        //    throw new NotImplementedException();
+        //}
 
-        public T Get(long id)
-        {
-            IBaseService<T> service = this.GetService();
-            //return repo.Get(id);
-            throw new NotImplementedException();
-        }
+        //public T Get(long id)
+        //{
+        //    IBaseService<T> service = this.GetService();
+        //    //return repo.Get(id);
+        //    throw new NotImplementedException();
+        //}
 
         //public virtual T Post(T entity)
         //{
@@ -84,11 +84,11 @@ namespace HaikusApp.Controllers.BaseClasses
 
         protected IBaseService<T> GetServiceWithPublishCode()
         {
-            string publishCode = this.GettingPasswordCode();
+            string publishCode = this.GettingPublishCode();
             return ServiceManager.GetServiceManager().CreateInstance<T>(publishCode);
         }
 
-        public Func<string> GettingPasswordCode
+        public Func<string> GettingPublishCode
         {
             get
             {

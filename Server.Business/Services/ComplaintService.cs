@@ -18,9 +18,18 @@ namespace Server.Business.Services
             _dataManager = DataManager.GetDataManager();
         }
 
-        public IList<Complaint> Get(int skipCount, int takeCount)
+        public IList<Complaint> Get(int skipCount, int takeCount, string publishCode)
         {
-            return _dataManager.CreateInstance<Complaint>().Get(skipCount, takeCount, null, SortingOrder.ASC);
+            var repo = _dataManager.CreateInstance<Complaint>();
+            if (repo.IsAdminPublishCode(publishCode))
+                return repo.Get(skipCount, takeCount, null, SortingOrder.ASC);
+            else
+                throw new UnauthorizedAccessException("Only admin can retrieve list of complaints");
+        }
+
+        public Complaint Add(Complaint entity)
+        {
+            return _dataManager.CreateInstance<Complaint>().Add(entity);
         }
     }
 }

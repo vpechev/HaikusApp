@@ -95,16 +95,19 @@ namespace Server.Data.Repositories
 
         public long GetUserIdByPublishCode(string code)
         {
-            string hashedCode = PublishCodeEncrypter.GenerateSHA256Hash(code);
-            long userId = DBConnection.Query<long>(SelectUserIdByPublishCodeQuery, new { PublishCode = hashedCode }).First();
-            if (IsAdminPublishCode(hashedCode) || userId > 0)
-                return userId;
+            if(code != null)
+            { 
+                string hashedCode = PublishCodeEncrypter.GenerateSHA256Hash(code);
+                long userId = DBConnection.Query<long>(SelectUserIdByPublishCodeQuery, new { PublishCode = hashedCode }).First();
+                if (IsAdminPublishCode(hashedCode) || userId > 0)
+                    return userId;
+            }
             throw new UnauthorizedAccessException("invalid publish code");
         }
 
         public bool IsAdminPublishCode(string code)
         {
-            return Server.Data.Constants.Constants.AdminKeys.Contains(PublishCodeEncrypter.GenerateSHA256Hash(code));
+            return code != null && Server.Data.Constants.Constants.AdminKeys.Contains(PublishCodeEncrypter.GenerateSHA256Hash(code));
         }
 
         //private static string GetQueryWithPaging(string orderType)
@@ -148,8 +151,8 @@ namespace Server.Data.Repositories
 
         #region Query properties
         public abstract string InsertQuery { get; }
-        public virtual string SelectAllFullQuery { get { return this.SelectAllQuery; } }
-        public virtual string SelectByIdFullQuery { get { return this.SelectByIdQuery; } }
+        //public virtual string SelectAllFullQuery { get { return this.SelectAllQuery; } }
+        //public virtual string SelectByIdFullQuery { get { return this.SelectByIdQuery; } }
         public virtual string SelectAllQuery { get { return Sql.SelectStatements.SelectAllQuery.ReplaceTableName(TableName).ReplaceStarWithConcreteColumns(TableColumns); } }
         public virtual string SelectByIdQuery { get { return Sql.SelectStatements.SelectByIdQuery.ReplaceTableName(TableName).ReplaceStarWithConcreteColumns(TableColumns); } }
         ////private static string GetPagingSubQuery { get { return Constants.PagingQuery; } }

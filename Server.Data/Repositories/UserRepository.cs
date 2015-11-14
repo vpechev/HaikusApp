@@ -43,6 +43,7 @@ namespace Server.Data.Repositories
         public override string UpdateByIdQuery { get { return Sql.UpdateStatements.UpdateUserByIdQuery; } }
         public string UpdateVipStatusByIdQuery { get { return Sql.UpdateStatements.UpdateVipStatusByIdQuery; } }
         public string SelectVIPUsersQuery { get { return Sql.SelectStatements.SelectVIPUsersQuery; } }
+        public override string SelectAllQuery { get { return Sql.SelectStatements.SelectAllUsers; } }
         public override string TableName { get { return "Users"; } }
         public override string TableColumns { get { return EntityColumnsConstants.UserColumns; } }
         #endregion

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Server.Data.Managers;
 using Server.Data.Enums;
 using Server.Data.Repositories;
+using Server.Business.DAOs;
 
 namespace Server.Business.Services
 {
@@ -19,7 +20,7 @@ namespace Server.Business.Services
             _dataManager = DataManager.GetDataManager();
         }
 
-        public User RegisterUser(User entity)
+        public User Add(User entity)
         {
             if (entity.Username != null && entity.PublishCode != null)
             {
@@ -29,10 +30,10 @@ namespace Server.Business.Services
                 throw new MissingInputDataException();
         }
 
-        public User Get(int id)
+        public UserDAO Get(long id)
         {
             var repo = _dataManager.CreateInstance<User>();
-            return repo.Get(id);
+            return new UserDAO(repo.Get(id));
         }
 
         public IList<User> Get(int skipCount, int takeCount, string orderType = null, SortingOrder sortingOrder = SortingOrder.ASC)

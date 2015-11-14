@@ -17,5 +17,10 @@ namespace Server.Data.Sql
         public static readonly string SelectAllComplaints = "SELECT * FROM [dbo].[Haikus] WHERE [IsComplaint] = 1 AND [IsDeleted] = 0 " + Constants.PagingQuery;
 
         public static readonly string SelectUserIdByPublishCode = "Select [Id] FROM [dbo].[" + TableNamesConstants.UserTableName + " WHERE [PublishCode] = @PublishCode";
+
+        public const string SelectAllUsers = "(SELECT *, 1 as filter FROM " + TableNamesConstants.UserTableName + @" WHERE [IsVip] = 1 AND [IsDeted] = 0 )
+                                              UNION ALL
+                                              (SELECT *, 2 as filter FROM " + TableNamesConstants.UserTableName + @" WHERE [IsVip] = 0 AND [IsDeted] = 0 )  
+                                              ORDER BY filter, [OrderType] SortingOrder OFFSET @OffsetCount ROWS FETCH NEXT @FetchedElements ROWS ONLY";
     }
 }

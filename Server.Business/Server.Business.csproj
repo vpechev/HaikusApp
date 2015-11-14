@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAOs\DAOEntity.cs" />
+    <Compile Include="DAOs\HaikuDAO.cs" />
+    <Compile Include="DAOs\UserDAO.cs" />
     <Compile Include="Services\Interfaces\IBaseService.cs" />
     <Compile Include="DI\ServiceObjectContainer.cs" />
     <Compile Include="Exceptions\InvalidPublishCodeException.cs" />
