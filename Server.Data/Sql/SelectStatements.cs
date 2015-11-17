@@ -18,9 +18,9 @@ namespace Server.Data.Sql
 
         public static readonly string SelectUserIdByPublishCode = "Select [Id] FROM [dbo].[" + TableNamesConstants.UserTableName + " WHERE [PublishCode] = @PublishCode";
 
-        public const string SelectAllUsers = "(SELECT *, 1 as filter FROM " + TableNamesConstants.UserTableName + @" WHERE [IsVip] = 1 AND [IsDeted] = 0 )
+        public const string SelectAllUsers = "(SELECT *, 1 as filter FROM " + TableNamesConstants.UserTableName + @" WHERE [IsVip] = 1 AND [IsDeleted] = 0 )
                                               UNION ALL
-                                              (SELECT *, 2 as filter FROM " + TableNamesConstants.UserTableName + @" WHERE [IsVip] = 0 AND [IsDeted] = 0 )  
+                                              (SELECT *, 2 as filter FROM " + TableNamesConstants.UserTableName + @" WHERE [IsVip] = 0 AND [IsDeleted] = 0 )  
                                               ORDER BY filter, [OrderType] SortingOrder OFFSET @OffsetCount ROWS FETCH NEXT @FetchedElements ROWS ONLY";
     }
 }

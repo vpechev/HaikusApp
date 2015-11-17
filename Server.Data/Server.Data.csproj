@@ -74,7 +74,6 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\ComplaintRepository.cs" />
     <Compile Include="Repositories\HaikuRepository.cs" />
-    <Compile Include="Repositories\IBaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBaseRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Sql\Constants\Constants.cs" />

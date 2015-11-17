@@ -12,17 +12,20 @@ namespace Server.Data.Repositories
 {
     public class UserRepository : BaseRepository<User>
     {
-        public override User Add(User entity)
+        public override User Add(User entity, long userId = 0)
         {
+            if (entity.PublishCode == null)
+                throw new NullReferenceException("new user cannot be created without publish code");
             var securedPublishCode = PublishCodeEncrypter.GenerateSHA256Hash(entity.PublishCode);
             var entityId = DBConnection.Query<long>(InsertQuery, new { Username = entity.Username, PublishCode = securedPublishCode, IsDeleted = entity.IsDeleted, IsVip = entity.IsVip }).FirstOrDefault();
             entity.Id = entityId;
+            entity.PublishCode = null; // we don't want to return the publish code
             return entity;
         }
 
-        public override User Update(User entity)
+        public override User Update(User entity, long userId = 0)
         {
-            DBConnection.Execute(InsertQuery, new { Username = entity.Username, PublishCode = entity.PublishCode, IsDeleted = entity.IsDeleted, IsVip = entity.IsVip });
+            DBConnection.Execute(UpdateByIdQuery, new { Id = entity.Id, Username = entity.Username, IsDeleted = entity.IsDeleted, IsVip = entity.IsVip });
             return entity;
         }
 
@@ -45,7 +48,7 @@ namespace Server.Data.Repositories
         public string SelectVIPUsersQuery { get { return Sql.SelectStatements.SelectVIPUsersQuery; } }
         public override string SelectAllQuery { get { return Sql.SelectStatements.SelectAllUsers; } }
         public override string TableName { get { return "Users"; } }
-        public override string TableColumns { get { return EntityColumnsConstants.UserColumns; } }
+        public override string TableColumns { get { return EntityColumnsConstants.UserColumnsWithId; } }
         #endregion
     }
 }

@@ -9,7 +9,7 @@ namespace Server.Data.Sql
     public static class TableNamesConstants
     {
         public const string HaikuTableName = "Haikus";
-        public const string UserTableName = "Haikus";
+        public const string UserTableName = "Users";
         public const string RatingTableName = "Ratings";
     }
 }

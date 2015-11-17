@@ -42,15 +42,10 @@ namespace Server.Business.Services
             return repo.Get(skipCount, takeCount, orderType, sortingOrder);
         }
 
-        public IList<Complaint> GetComplaints(string adminCode)
-        {
-            return null;
-        }
-
         public void RemoveUserWithHaikus(string publishCode, long id)
         {
-            var repo = _dataManager.CreateInstance<User>();
-            if (repo.IsAdminPublishCode(publishCode))
+            var repo = (UserRepository)_dataManager.CreateInstance<User>();
+            if (base.IsAdminPublishCode(publishCode))
                 repo.Remove(id);
             else
                 throw new UnauthorizedAccessException("Only admin has the privilege to remove another user");
@@ -58,9 +53,10 @@ namespace Server.Business.Services
 
         public void PromoteToVip(string publishCode, long id)
         {
-            var repo = _dataManager.CreateInstance<User>();
-            if (repo.IsAdminPublishCode(publishCode))
+            if (base.IsAdminPublishCode(publishCode)){
+                var repo = (UserRepository)_dataManager.CreateInstance<User>(); 
                 ((UserRepository)repo).UpdateToVip(id, true);
+            }
             else
                 throw new UnauthorizedAccessException("Only admin has the privilege to remove another user");
         }

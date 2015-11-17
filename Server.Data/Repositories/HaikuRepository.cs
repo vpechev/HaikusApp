@@ -12,18 +12,16 @@ namespace Server.Data.Repositories
 {
     public class HaikuRepository : BaseRepository<Haiku>
     {
-        public override Haiku Add(Haiku entity)
+        public override Haiku Add(Haiku entity, long userId)
         {
-            long userId = base.GetUserIdByPublishCode(PublishCode);
-            var entityId = DBConnection.Query<long>(InsertQuery, new { Text = entity.Text, UserId = userId, PublishDate = entity.PublishDate, IsDeleted = entity.IsDeleted }).FirstOrDefault();
+            var entityId = DBConnection.Query<long>(InsertQuery, new { Text = entity.Text, UserId = userId, PublishDate = entity.Date, IsDeleted = entity.IsDeleted }).FirstOrDefault();
             entity.Id = entityId;
             return entity;
         }
 
-        public override Haiku Update(Haiku entity)
+        public override Haiku Update(Haiku entity, long userId)
         {
-            long userId = base.GetUserIdByPublishCode(PublishCode);
-            DBConnection.Execute(UpdateByIdQuery, new { Text = entity.Text, UserId = userId, PublishDate = entity.PublishDate, IsDeleted = entity.IsDeleted });
+            DBConnection.Execute(UpdateByIdQuery, new { Id = entity.Id, Text = entity.Text, UserId = userId, Date = entity.Date, IsDeleted = entity.IsDeleted });
             
             return entity;
         }
@@ -34,10 +32,10 @@ namespace Server.Data.Repositories
             return this.Get(haikuId);
         }
 
-        public void AddHaikuCompliant(long haikuId)
-        {
-            DBConnection.Execute(UpdateCompliantByHaikuIdQuery, new { Id = haikuId});
-        }
+        //public void AddHaikuCompliant(long haikuId)
+        //{
+        //    DBConnection.Execute(UpdateCompliantByHaikuIdQuery, new { Id = haikuId});
+        //}
 
         public void DeleteAllHaikusByUserId(long userId)
         {
@@ -56,6 +54,6 @@ namespace Server.Data.Repositories
 
         public override string TableName { get { return "Haikus"; } }
 
-        public override string TableColumns { get { return EntityColumnsConstants.HaikuColumns; } }
+        public override string TableColumns { get { return EntityColumnsConstants.HaikuColumnsWithId; } }
     }
 }

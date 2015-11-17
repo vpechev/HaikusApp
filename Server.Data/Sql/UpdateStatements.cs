@@ -10,12 +10,11 @@ namespace Server.Data.Sql
     {
         public const string UpdateUserByIdQuery = @"UPDATE [dbo].[Users]
                                                     SET [Username] = @Username,
-                                                    [PublishCode] = @PublishCode,
                                                     [IsVip] = @IsVip
                                                     WHERE [Id] = @Id ";
 
         public const string UpdateVipStatusByIdQuery = @"UPDATE [dbo].[Users]
-                                                        SET [IsVip] = @IsVip,
+                                                        SET [IsVip] = @IsVip
                                                         WHERE [Id] = @Id ";
 
         public const string UpdateHaikuByIdQuery = @"
@@ -29,7 +28,7 @@ namespace Server.Data.Sql
                                                      UPDATE [dbo].[Ratings] SET [IsDeleted] = 1 WHERE [HaikuId] = @Id;
                                                      UPDATE [dbo].[Haikus]
                                                      SET [Text] = @Text,
-                                                     [Date] = @PublishDate,
+                                                     [Date] = @Date,
                                                      [RatingValue] = 0,
                                                      [RatersCount] = 0
                                                      WHERE [Id] = @Id 
@@ -37,7 +36,8 @@ namespace Server.Data.Sql
 
 
         public const string UpdateHaikuRatingByIdQuery = @"BEGIN TRAN
-                                                                DECLARE @HaikuId BIGINT = @Id
+                                                                DECLARE @HaikuId BIGINT = @Id;
+                                                                DECLARE @UserId BIGINT = (SELECT [UserId] FROM [dbo].[Haikus] WHERE [Id] = @Id);
                                                                 " + InsertStatements.InsertRatingQuery + @"
                                                                 UPDATE [dbo].[" + TableNamesConstants.HaikuTableName + @"] SET [RatersCount] = [RatersCount] + 1, [RatingValue] = [RatingValue] + @Value WHERE [Id] = @Id; 
                                                                 UPDATE [dbo].[" + TableNamesConstants.UserTableName + @"] SET [RatersCount] = [RatersCount] + 1, [RatingValue] = [RatingValue] + @Value WHERE [Id] = @UserId; 

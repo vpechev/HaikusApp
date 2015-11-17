@@ -8,7 +8,7 @@ namespace Server.Data.Sql
 {
     public class DeleteStatements
     {
-        public const string DeleteByIdQuery = "UPDATE [dbo].[$TABLENAME] SET [IsDeleted] = 1 WHERE [Id] = @Id";
+        public const string DeleteByIdQuery = "UPDATE [dbo].[$TABLENAME] SET [IsDeleted] = 1 WHERE [Id] = @Id SELECT @@ROWCOUNT";
 
         public const string ActualDeleteByIdQuery = "DELETE FROM [dbo].[$TABLENAME] WHERE [Id] = @Id";
 

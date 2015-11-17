@@ -13,14 +13,15 @@ using Server.Data.Extensions;
 using System.Configuration;
 using Server.Data.Enums;
 using Server.Data.Utils;
+using Server.Data.Models.BaseClasses;
 
 namespace Server.Data.Repositories
 {
-    public abstract class BaseRepository<T> : IDisposable, IBaseRepository<T> where T : IIdentifiable
+    public abstract class BaseRepository<T> : IDisposable, IBaseRepository<T> where T : Identifiable
     {
         #region Fields
-        private IDbConnection _dbConnection;
-        private string _publishKey;
+        private static IDbConnection _dbConnection;
+       
         #endregion
 
         #region Constructors
@@ -31,9 +32,8 @@ namespace Server.Data.Repositories
 
         protected BaseRepository(string publishKey = null) : this()
         {
-            this._publishKey = publishKey;
         }
-
+        
         protected BaseRepository(IDbConnection connection)
         {
             _dbConnection = connection;
@@ -66,9 +66,9 @@ namespace Server.Data.Repositories
             return DBConnection.Query<T>(SelectAllWithPaging(orderValue, sortingOrder.ToString()), new { OffsetCount = skipCount, FetchedElements = takeCount }).ToList();
         }
 
-        public abstract T Add(T entity);
+        public abstract T Add(T entity, long userId = 0);
 
-        public abstract T Update(T entity);
+        public abstract T Update(T entity, long userId = 0);
 
         public virtual void Remove(long id)
         {
@@ -93,19 +93,13 @@ namespace Server.Data.Repositories
             }
         }
 
-        public long GetUserIdByPublishCode(string code)
+        public static long? GetUserIdByPublishCode(string hashedCode)
         {
-            if(code != null)
-            { 
-                string hashedCode = PublishCodeEncrypter.GenerateSHA256Hash(code);
-                long userId = DBConnection.Query<long>(SelectUserIdByPublishCodeQuery, new { PublishCode = hashedCode }).First();
-                if (IsAdminPublishCode(hashedCode) || userId > 0)
-                    return userId;
-            }
-            throw new UnauthorizedAccessException("invalid publish code");
+            long userId = DBConnection.Query<long>(SelectUserIdByPublishCodeQuery, new { PublishCode = hashedCode }).First();
+            return userId;
         }
 
-        public bool IsAdminPublishCode(string code)
+        public static bool IsAdminPublishCode(string code)
         {
             return code != null && Server.Data.Constants.Constants.AdminKeys.Contains(PublishCodeEncrypter.GenerateSHA256Hash(code));
         }
@@ -160,9 +154,9 @@ namespace Server.Data.Repositories
         public virtual string DeleteByIdQuery { get { return Sql.DeleteStatements.DeleteByIdQuery.ReplaceTableName(TableName); } }
         public abstract string TableName { get; }
         public abstract string TableColumns { get; }
-        private string SelectUserIdByPublishCodeQuery { get { return Sql.SelectStatements.SelectUserIdByPublishCode; } }
-        public IDbConnection DBConnection { get { return _dbConnection; } }
-        public string PublishCode { get { return this._publishKey; } set { this._publishKey = value; } }
+        private static string SelectUserIdByPublishCodeQuery { get { return Sql.SelectStatements.SelectUserIdByPublishCode; } }
+        public static IDbConnection DBConnection { get { return _dbConnection; } }
+        //public string PublishCode { get { return this._publishKey; } set { this._publishKey = value; } }
         #endregion
     }
 }

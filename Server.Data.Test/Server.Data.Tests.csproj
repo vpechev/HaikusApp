@@ -77,10 +77,18 @@
   <ItemGroup>
     <Compile Include="DataGenerators\RandomDataGenerator.cs" />
     <Compile Include="IntegrationTests\HaikuRepositoryTest.cs" />
+    <Compile Include="IntegrationTests\ComplaintRepositoryTest.cs" />
     <Compile Include="IntegrationTests\UserRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="OrderedTests\HaikusRepository.orderedtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\UserRepository.orderedtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

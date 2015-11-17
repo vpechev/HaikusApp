@@ -12,21 +12,26 @@ namespace Server.Data.Test.DataGenerators
     {
         public static User GenerateUser()
         {
-            string[] usernames = { "849814321", "48549651", "5456464", "454961961", "53454" };
-
             Random random = new Random();
 
             return new User()
             {
-                Username = Path.GetRandomFileName().Replace(".", ""),
+                Username = Path.GetRandomFileName(),
+                PublishCode = Path.GetRandomFileName()
             };
         }
 
         public static Haiku GenerateHaiku()
         {
+            StringBuilder text = new StringBuilder(); 
+            for (int i = 0; i < new Random().Next(100); i++)
+			{
+			    text.Append(Path.GetRandomFileName() + " ");
+			}
             return new Haiku()
             {
-
+                    Text = text.ToString(),
+                    Date = DateTime.Now
             };
         }
     }

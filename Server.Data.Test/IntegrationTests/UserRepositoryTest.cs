@@ -6,6 +6,8 @@ using Server.Data.Repositories.Interfaces;
 using System.Configuration;
 using System.Collections.Generic;
 using Server.Data.Test.DataGenerators;
+using FluentAssertions;
+using Server.Data.Repositories;
 
 namespace Server.Data.Test.IntegrationTests
 {
@@ -13,28 +15,21 @@ namespace Server.Data.Test.IntegrationTests
     [TestClass]
     public class UserRepositoryTest
     {
-        private static long _logoId;
-        private long _userId;
+        private string _publishCode;
         private static User _mockUser;
-        private static long chartId;
+        private static long _userId;
 
         [TestInitialize]
         public void InitTests()
         {
-            _userId = 1;
-            if (!(long.TryParse(ConfigurationManager.AppSettings["TestUserId"].ToString(), out _userId)))
-                Console.WriteLine("Some Exception occur");
+            _publishCode = "some test publish cod";
+            if (ConfigurationManager.AppSettings["TestPublishCode"] != null)
+                _publishCode = ConfigurationManager.AppSettings["TestPublishCode"].ToString();
         }
 
         private void SetUpTestData()
         {
-            chartId = (long)DataManager.GetDataManager().CreateInstance<User>().Add(RandomDataGenerator.GenerateUser()).Id;
-
-            _mockUser = new User()
-            {
-            
-            };
-
+            _mockUser = RandomDataGenerator.GenerateUser();
         }
 
         private IBaseRepository<User> InitializeRepo()
@@ -42,17 +37,16 @@ namespace Server.Data.Test.IntegrationTests
             return DataManager.GetDataManager().CreateInstance<User>();
         }
 
-        //[TestMethod]
-        //public void GetAll()
-        //{
-        //    IBaseRepository<User> repo = InitializeRepo();
-        //    int offsetCount = 0;
-        //    int entitiesCount = 10;
-        //    var logos = repo.GetProjection(offsetCount, entitiesCount);
+        [TestMethod]
+        public void GetAll()
+        {
+            IBaseRepository<User> repo = InitializeRepo();
+            int offsetCount = 0;
+            int entitiesCount = 10;
+            var users = repo.Get(offsetCount, entitiesCount);
 
-        //    logos.Should().NotBeNull();
-        //    logos.Count.Should().BeGreaterThan(0);
-        //}
+            users.Should().NotBeNull();
+        }
 
         [TestMethod]
         public void Insert()
@@ -62,10 +56,10 @@ namespace Server.Data.Test.IntegrationTests
 
             _mockUser = repo.Add(_mockUser);
 
-            //_mockLogo.Id.Should().NotBe(0);
-            //_mockLogo.Enabled.Should().BeTrue();
-            //_mockLogo.ChartId.Should().NotBe(0);
-            //_logoId = (long)_mockLogo.Id;
+            _mockUser.Should().NotBeNull();
+            _mockUser.Id.Should().NotBe(0);
+            _mockUser.PublishCode.Should().BeNull();
+            _userId = (long)_mockUser.Id;
         }
 
         [TestMethod]
@@ -73,14 +67,12 @@ namespace Server.Data.Test.IntegrationTests
         {
             IBaseRepository<User> repo = InitializeRepo();
 
-            //User logo = repo.GetProjection(_logoId);
+            User user = repo.Get(_userId);
 
-            //logo.Should().NotBeNull();
-            //logo.Id.Should().NotBe(0);
-            //logo.Enabled.Should().BeTrue();
-            //logo.ChartId.Should().NotBe(0);
-            //logo.Height.Should().Be(_mockLogo.Height);
-            //logo.Width.Should().Be(_mockLogo.Width);
+            user.Should().NotBeNull();
+            user.Id.Should().NotBe(0);
+            user.PublishCode.Should().BeNull();
+            user.Username.Should().NotBeNull();
         }
 
         [TestMethod]
@@ -88,18 +80,29 @@ namespace Server.Data.Test.IntegrationTests
         {
             IBaseRepository<User> repo = InitializeRepo();
 
-            //var user = repo.GetProjection(_logoId);
+            var user = repo.Get(_userId);
 
-            //logo.Enabled = false;
-            //logo.Width = 50;
-            //logo.Height = 50;
+            string newUsername = "aladin";
+            user.Username = newUsername;
 
-            //repo.Update(logo);
-            //var modifiedUser = repo.GetProjection(_logoId);
+            var modifiedUser = repo.Update(user);
 
-            //modifiedZoom.Enabled.Should().BeFalse();
-            //modifiedZoom.Height.Should().Be(50);
-            //modifiedZoom.Width.Should().Be(50);
+            modifiedUser.Username.Should().Be(newUsername);
+        }
+
+        [TestMethod]
+        public void ChangeVip()
+        {
+            IBaseRepository<User> repo = InitializeRepo();
+
+            var user = repo.Get(_userId);
+
+            bool newVipStatus = !user.IsVip;
+
+            user.IsVip = newVipStatus;
+            ((UserRepository)repo).UpdateToVip(_userId, newVipStatus);
+
+            repo.Get(_userId).IsVip.Should().Be(newVipStatus);
         }
 
         [TestMethod]
@@ -107,17 +110,14 @@ namespace Server.Data.Test.IntegrationTests
         {
             IBaseRepository<User> repo = InitializeRepo();
 
-            repo.Remove(_logoId);
+            repo.Remove(_userId);
 
             try
             {
-                //repo.GetProjection(_logoId);
+                repo.Get(_userId);
                 Assert.Fail();
             }
-            catch (KeyNotFoundException)
-            {
-                //DataManager.GetDataManager().CreateInstance<User>().Remove(chartId);
-            }
+            catch (KeyNotFoundException) { }
 
         }
     }

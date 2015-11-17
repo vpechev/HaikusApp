@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Rating]
+﻿CREATE TABLE [dbo].[Ratings]
 (
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[Value] INT NOT NULL,

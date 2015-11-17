@@ -10,16 +10,16 @@ using Server.Data.Enums;
 
 namespace Server.Data.Repositories
 {
-    class ComplaintRepository : BaseRepository<Complaint>
+    public class ComplaintRepository : BaseRepository<Complaint>
     {
-        public override Complaint Add(Complaint entity)
+        public override Complaint Add(Complaint entity, long userId)
         {
             var entityId = DBConnection.Query<long>(InsertQuery, new { HaikuId = entity.HaikuId, Date = entity.Date }).FirstOrDefault();
             entity.Id = entityId;                                        
             return entity;
         }
 
-        public override Complaint Update(Complaint entity)
+        public override Complaint Update(Complaint entityy, long userId)
         {
             throw new Exception("Complaints cannot be updated");
         }

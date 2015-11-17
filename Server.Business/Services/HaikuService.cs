@@ -23,23 +23,23 @@ namespace Server.Business.Services
 
         public Haiku Add(Haiku entity, string publishCode)
         {
-            var repo = _dataManager.CreateInstance<Haiku>(publishCode);
-            repo.GetUserIdByPublishCode(publishCode);       //simple level of security just checks whether there exists user with such publishCode 
-            return repo.Add(entity);
+            var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
+            long userId = base.GetUserIdByPublishCode(publishCode);       //simple level of security just checks whether there exists user with such publishCode 
+            return repo.Add(entity, userId);
         }
 
         public void Remove(long id, string publishCode)
         {
-            var repo = _dataManager.CreateInstance<Haiku>(publishCode);
-            repo.GetUserIdByPublishCode(publishCode);       //simple level of security just checks whether there exists user with such publishCode 
+            var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
+            base.GetUserIdByPublishCode(publishCode);       //simple level of security just checks whether there exists user with such publishCode 
             repo.Remove(id);
         }
 
         public void Update(Haiku entity, string publishCode)
         {
-            var repo = _dataManager.CreateInstance<Haiku>(publishCode);
-            repo.GetUserIdByPublishCode(publishCode);       //simple level of security just checks whether there exists user with such publishCode 
-            repo.Update(entity);
+            var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
+            long userId = base.GetUserIdByPublishCode(publishCode);
+            repo.Update(entity, userId);
         }
 
         public IList<HaikuDAO> Get(int skipCount, int takeCount, string orderType = null, SortingOrder sortingOrder = SortingOrder.ASC)
@@ -59,21 +59,24 @@ namespace Server.Business.Services
 
         public void DeleteAllHaikusPerUser(string publishCode)
         {
-            var repo = _dataManager.CreateInstance<Haiku>(publishCode);
-            long userId = repo.GetUserIdByPublishCode(publishCode);
+            var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
+            long userId = base.GetUserIdByPublishCode(publishCode);
             ((HaikuRepository)repo).DeleteAllHaikusByUserId(userId);
         }
 
-        public void AddComplaint(long haikuId)
-        {
-            if (haikuId > 0)
-            {
-                var repo = _dataManager.CreateInstance<Haiku>();
-                ((HaikuRepository)repo).AddHaikuCompliant(haikuId);
-            }
-            else
-                throw new MissingInputDataException();
-        }
+        //public void AddComplaint(long haikuId)
+        //{
+        //    if (haikuId > 0)
+        //    {
+        //        var repo = _dataManager.CreateInstance<Haiku>();
+        //        ((HaikuRepository)repo).AddHaikuCompliant(new Complaint(){
+        //            HaikuId = haikuId,
+        //            Date = DateTime.Now
+        //        });
+        //    }
+        //    else
+        //        throw new MissingInputDataException();
+        //}
 
     }
 }

@@ -28,6 +28,6 @@ namespace Server.Data.Models
             }
             set { this._actualRating = value;  }
         }
-        public DateTime PublishDate { get; set; }
+        public DateTime Date { get; set; }
     }
 }
