@@ -1,7 +1,9 @@
 ﻿using Microsoft.Practices.Unity;
 using Server.Business.DI;
+using Server.Business.DI.Interfaces;
 using Server.Business.Services;
 using Server.Data.Managers;
+using Server.Data.Models.BaseClasses;
 using Server.Data.Models.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -16,14 +18,14 @@ namespace Server.Business.Managers
         private static ServiceManager _serviceManager;
         private ServiceManager() { }
 
-        public BaseService<T> CreateInstance<T>() where T : IIdentifiable
+        public IBaseService<T> CreateInstance<T>() where T : Identifiable
         {
-            return ServiceObjectContainer.DefaultContainer.Resolve<BaseService<T>>();
+            return ServiceObjectContainer.DefaultContainer.Resolve<IBaseService<T>>();
         }
 
-        public BaseService<T> CreateInstance<T>(string publishCode) where T : IIdentifiable
+        public IBaseService<T> CreateInstance<T>(string publishCode) where T : Identifiable
         {
-            return ServiceObjectContainer.DefaultContainer.Resolve<BaseService<T>>(new ParameterOverride("publishcode", publishCode));
+            return ServiceObjectContainer.DefaultContainer.Resolve<IBaseService<T>>(new ParameterOverride("publishcode", publishCode));
         }
 
         public static ServiceManager GetServiceManager(IUnityContainer container = null)

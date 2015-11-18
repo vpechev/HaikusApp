@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="ComplaintRepository" storage="d:\haikusapp\server.data.test\orderedtests\complaintrepository.orderedtest" id="6ab8cf4d-f403-47eb-9d07-76097f9d4bae" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="5e11c5ae-9bb1-f98f-5078-1709edff33be" name="Insert" storage="..\bin\debug\server.data.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="be19a533-56ab-9c5f-ce55-045f9c2317a8" name="GetAll" storage="..\bin\debug\server.data.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

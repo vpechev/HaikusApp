@@ -35,11 +35,10 @@ namespace Server.Business.Services
             repo.Remove(id);
         }
 
-        public void Update(Haiku entity, string publishCode)
+        public HaikuDAO Get(long id)
         {
-            var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
-            long userId = base.GetUserIdByPublishCode(publishCode);
-            repo.Update(entity, userId);
+            var repo = _dataManager.CreateInstance<Haiku>();
+            return new HaikuDAO(repo.Get(id));
         }
 
         public IList<HaikuDAO> Get(int skipCount, int takeCount, string orderType = null, SortingOrder sortingOrder = SortingOrder.ASC)
@@ -48,6 +47,14 @@ namespace Server.Business.Services
             return HaikuDAO.CovertToHaikuDAO(repo.Get(skipCount, takeCount, orderType, sortingOrder));
         }
 
+
+        public void Update(Haiku entity, string publishCode)
+        {
+            var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
+            long userId = base.GetUserIdByPublishCode(publishCode);
+            repo.Update(entity, userId);
+        }
+        
         public HaikuDAO RateHaiku(long haikuId, int ratingValue)
         {
             if (ratingValue < 0 || ratingValue > 5)

@@ -42,21 +42,22 @@ namespace Server.Business.Services
             return repo.Get(skipCount, takeCount, orderType, sortingOrder);
         }
 
+        public void PromoteToVip(string publishCode, long id)
+        {
+            if (base.IsAdminPublishCode(publishCode))
+            {
+                var repo = (UserRepository)_dataManager.CreateInstance<User>();
+                ((UserRepository)repo).UpdateToVip(id, true);
+            }
+            else
+                throw new UnauthorizedAccessException("Only admin has the privilege to remove another user");
+        }
+
         public void RemoveUserWithHaikus(string publishCode, long id)
         {
             var repo = (UserRepository)_dataManager.CreateInstance<User>();
             if (base.IsAdminPublishCode(publishCode))
                 repo.Remove(id);
-            else
-                throw new UnauthorizedAccessException("Only admin has the privilege to remove another user");
-        }
-
-        public void PromoteToVip(string publishCode, long id)
-        {
-            if (base.IsAdminPublishCode(publishCode)){
-                var repo = (UserRepository)_dataManager.CreateInstance<User>(); 
-                ((UserRepository)repo).UpdateToVip(id, true);
-            }
             else
                 throw new UnauthorizedAccessException("Only admin has the privilege to remove another user");
         }

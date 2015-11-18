@@ -1,5 +1,7 @@
 D:\HaikusApp\Server.Data.Test\bin\Debug\OrderedTests\HaikusRepository.orderedtest
+D:\HaikusApp\Server.Data.Test\bin\Debug\OrderedTests\ComplaintRepository.orderedtest
 D:\HaikusApp\Server.Data.Test\bin\Debug\OrderedTests\UserRepository.orderedtest
+D:\HaikusApp\Server.Data.Test\bin\Debug\Server.Data.Test.dll.config
 D:\HaikusApp\Server.Data.Test\bin\Debug\Server.Data.Test.dll
 D:\HaikusApp\Server.Data.Test\bin\Debug\Server.Data.Test.pdb
 D:\HaikusApp\Server.Data.Test\bin\Debug\FluentAssertions.Core.dll
@@ -24,4 +26,3 @@ D:\HaikusApp\Server.Data.Test\bin\Debug\Rhino.Mocks.xml
 D:\HaikusApp\Server.Data.Test\obj\Debug\Server.Data.Tests.csprojResolveAssemblyReference.cache
 D:\HaikusApp\Server.Data.Test\obj\Debug\Server.Data.Test.dll
 D:\HaikusApp\Server.Data.Test\obj\Debug\Server.Data.Test.pdb
-D:\HaikusApp\Server.Data.Test\bin\Debug\Server.Data.Test.dll.config

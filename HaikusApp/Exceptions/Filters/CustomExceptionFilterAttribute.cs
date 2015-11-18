@@ -24,6 +24,11 @@ namespace HaikusApp.Exceptions.Filters
                 LogErrorWatcher.Error("It's not passed input data", context.Exception);
                 context.Response = new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
+            else if (context.Exception is KeyNotFoundException)
+            {
+                LogErrorWatcher.Error("Missing item", context.Exception);
+                context.Response = new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
             else
             {
                 LogErrorWatcher.Error("Internal Server Error", context.Exception);

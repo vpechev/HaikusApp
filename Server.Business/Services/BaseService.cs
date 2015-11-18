@@ -1,5 +1,6 @@
 ﻿using Server.Business.DI;
 using Server.Business.DI.Interfaces;
+using Server.Data.Managers;
 using Server.Data.Models.BaseClasses;
 using Server.Data.Models.Interfaces;
 using Server.Data.Repositories;
@@ -12,9 +13,14 @@ using System.Threading.Tasks;
 
 namespace Server.Business.Services
 {
-    public abstract class BaseService<T> : IBaseService<T> where T : IIdentifiable
+    public abstract class BaseService<T> : IBaseService<T> where T : Identifiable
     {
-        private string _publishKey;
+        private DataManager _dataManager;
+
+        //public T Get(long id)
+        //{
+        //    return DataManager.CreateInstance<T>().Get(id);
+        //}
 
         public long GetUserIdByPublishCode(string code)
         {
@@ -32,6 +38,16 @@ namespace Server.Business.Services
         {
             return BaseRepository<Identifiable>.IsAdminPublishCode(code);
         }
-        
+
+        public DataManager DataManager
+        {
+            get 
+            {
+                if (_dataManager == null)
+                    this._dataManager = DataManager.GetDataManager();
+                return this._dataManager; 
+            }
+        }
+      
     }
 }

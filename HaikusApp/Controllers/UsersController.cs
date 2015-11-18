@@ -27,7 +27,7 @@ namespace HaikusApp.Controllers
         }
 
         [HttpPut]
-        [Route("/{id}/vip")]
+        [Route("{id}/vip")]
         public void Put(long id)
         {
             var publishCode = base.GettingPublishCode();

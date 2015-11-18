@@ -8,7 +8,7 @@ namespace Server.Data.Sql
 {
     public class SelectStatements
     {
-        public static readonly string SelectAllQuery = "SELECT * FROM [dbo].[$TABLENAME] WHERE [IsDeleted] = 0 " + Constants.PagingQuery;
+        public static readonly string SelectAllQuery = "SELECT * FROM [dbo].[$TABLENAME] " + Constants.PagingQuery;
         
         public const string SelectByIdQuery = "SELECT * FROM [dbo].[$TABLENAME] WHERE [Id] = @Id AND [IsDeleted] = 0";
 

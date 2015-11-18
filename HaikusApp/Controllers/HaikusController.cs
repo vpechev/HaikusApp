@@ -16,6 +16,7 @@ using System.Web.Http;
 namespace HaikusApp.Controllers
 {
     [CustomExceptionFilter]
+    [RoutePrefix("Haikus")]
     public class HaikusController : BaseController<Haiku>
     {
         [HttpPost]
@@ -27,7 +28,7 @@ namespace HaikusApp.Controllers
         }
 
         [HttpPost]
-        [Route("/{id}/ratings")]
+        [Route("{id}/ratings")]
         public HaikuDAO PostRating(long id, [FromBody]int ratingValue)
         {
             IBaseService<Haiku> service = ServiceManager.GetServiceManager().CreateInstance<Haiku>();
@@ -36,10 +37,19 @@ namespace HaikusApp.Controllers
         }
 
         [HttpGet]
+        [Route("All")]
         public IList<HaikuDAO> Get([FromUri]int skip, int take, string orderType, SortingOrder sortingOrder)
         {
             IBaseService<Haiku> service = ServiceManager.GetServiceManager().CreateInstance<Haiku>();
             return ((HaikuService)service).Get(skip, take, orderType, sortingOrder);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public HaikuDAO Get([FromUri]long id)
+        {
+            IBaseService<Haiku> service = GetService();
+            return ((HaikuService)service).Get(id);
         }
 
         [HttpPut]
@@ -59,7 +69,7 @@ namespace HaikusApp.Controllers
         }
 
         [HttpDelete]
-        [Route("/All")]
+        [Route("All")]
         public void DeleteAll()
         {
             var publishCode = base.GettingPublishCode();

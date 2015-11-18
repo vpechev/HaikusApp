@@ -2,6 +2,9 @@
 using Server.Business.DI;
 using Server.Business.DI.Interfaces;
 using Server.Business.Managers;
+using Server.Business.Services;
+using Server.Data.Managers;
+using Server.Data.Models.BaseClasses;
 using Server.Data.Models.Interfaces;
 using Server.Logging;
 using System;
@@ -13,7 +16,7 @@ using System.Web.Http;
 
 namespace HaikusApp.Controllers.BaseClasses
 {
-    public class BaseController<T> : ApiController, IBaseController where T : IIdentifiable
+    public class BaseController<T> : ApiController /*IBaseController<T> */ where T : Identifiable
     {
         #region Delegates
         //private Func<HttpRequestMessage> _getRequest;
@@ -29,46 +32,7 @@ namespace HaikusApp.Controllers.BaseClasses
             //GetRequest = requestDelegate;
         }
         #endregion
-        //public Func<HttpRequestMessage> GetRequest
-        //{
-        //    get { return _getRequest; }
-        //    private set { _getRequest = value; }
-        //}
-
-        //public IList<T> Get()
-        //{
-        //    IBaseService<T> service = this.GetService();
-        //    //IList<T> results = repo.Get();
-        //    //return results;
-        //    throw new NotImplementedException();
-        //}
-
-        //public T Get(long id)
-        //{
-        //    IBaseService<T> service = this.GetService();
-        //    //return repo.Get(id);
-        //    throw new NotImplementedException();
-        //}
-
-        //public virtual T Post(T entity)
-        //{
-        //    IBaseService<T> service = this.GetServiceWithPublishCode();
-        //    return service.Add(entity);
-        //}
-
-        //public IHttpActionResult Delete(long id)
-        //{
-        //    IBaseService<T> service = this.GetServiceWithPublishCode();
-        //    service.Remove(id);
-        //    return Ok();
-        //}
-
-        //public T Put(T entity)
-        //{
-        //    IBaseService<T> repo = this.GetServiceWithPublishCode();
-        //    return repo.Update(entity);
-        //}
-
+        
         private string GetPasswordCode()
         {
             string res = this.Request.Headers.GetValues("publishKey").FirstOrDefault();
@@ -85,7 +49,7 @@ namespace HaikusApp.Controllers.BaseClasses
         protected IBaseService<T> GetServiceWithPublishCode()
         {
             string publishCode = this.GettingPublishCode();
-            return ServiceManager.GetServiceManager().CreateInstance<T>(publishCode);
+            return ServiceManager.GetServiceManager().CreateInstance<T>();
         }
 
         public Func<string> GettingPublishCode
@@ -99,5 +63,6 @@ namespace HaikusApp.Controllers.BaseClasses
             set { _gettingPublishCode = value; }
         }
 
+        
     }
 }
