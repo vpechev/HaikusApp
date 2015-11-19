@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Client.Main.Models.Haiku>
+@{
+    ViewBag.Title = "My Todo List";
+}
+@functions{
+    public string GetAntiForgeryToken()
+    {
+        string cookieToken, formToken;
+        AntiForgery.GetTokens(null, out cookieToken, out formToken);
+        return cookieToken + ":" + formToken;                
+    }
+}
+
+<header>
+    <h1>@ViewBag.Title</h1>
+</header>
+
+<div id="main-content">
+    <h1>Haikus</h1>
+    @foreach (var h in Model)
+    {
+        <a href="haikus/details/@h.Id"><span>@h.Text</span><span>@h.ActualRating</span></a>
+    }
+    <div class="todoList" id="loginPanel">
+        <p>First time here? <a id="showRegister">Sign up</a></p>
+    </div>
+    <div class="todoList" id="registerPanel">
+        <h2>Sign up</h2>
+        @Html.Partial("_Register")
+        <p>Already signed up? <a id="showLogin">Log in</a></p>
+    </div>
+</div>
+
+@if (@User.Identity.IsAuthenticated)
+{
+    @section scripts {
+        @Scripts.Render("~/bundles/knockout")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/todo")
+    }
+}

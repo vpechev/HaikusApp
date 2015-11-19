@@ -28,9 +28,10 @@ namespace Server.Business.Services
             {
                 string hashedCode = PublishCodeEncrypter.GenerateSHA256Hash(code);
                 long? userId = BaseRepository<Identifiable>.GetUserIdByPublishCode(hashedCode);
-                if (userId.HasValue & (IsAdminPublishCode(hashedCode) || userId > 0) )
+                if (userId != null & (IsAdminPublishCode(hashedCode) || userId > 0) )
                     return userId.Value;
             }
+
             throw new UnauthorizedAccessException("invalid publish code");
         }
 

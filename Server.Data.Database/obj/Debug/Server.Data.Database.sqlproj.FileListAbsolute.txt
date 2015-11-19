@@ -3,3 +3,7 @@ D:\HaikusApp\Server.Data.Database\bin\Debug\Server.Data.Database.dll
 D:\HaikusApp\Server.Data.Database\bin\Debug\Server.Data.Database.pdb
 D:\HaikusApp\Server.Data.Database\obj\Debug\Server.Data.Database.dll
 D:\HaikusApp\Server.Data.Database\obj\Debug\Server.Data.Database.pdb
+D:\HaikusApp\Server.Data.Database\obj\Debug\Model.xml
+D:\HaikusApp\Server.Data.Database\obj\Debug\refactor.xml
+D:\HaikusApp\Server.Data.Database\obj\Debug\postdeploy.sql
+D:\HaikusApp\Server.Data.Database\obj\Debug\predeploy.sql

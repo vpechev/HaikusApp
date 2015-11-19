@@ -71,6 +71,13 @@ namespace Server.Business.Services
             ((HaikuRepository)repo).DeleteAllHaikusByUserId(userId);
         }
 
+        public void Delete(long id, string publishCode)
+        {
+            var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
+            base.GetUserIdByPublishCode(publishCode);
+            ((HaikuRepository)repo).Remove(id);
+        }
+
         //public void AddComplaint(long haikuId)
         //{
         //    if (haikuId > 0)

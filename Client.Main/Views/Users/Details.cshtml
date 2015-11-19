@@ -1,0 +1,21 @@
+﻿@model  Client.Main.Models.User
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <div><h2>Username:</h2> @Model.Username  </div>
+    <div><strong>Rating:</strong> @Model.ActualRating</div>
+    <div><strong>VIP Status:</strong> @Model.IsVip</div>
+    
+    <h3>Haikus</h3>
+    <div>
+        @foreach (var h in Model.Haikus)
+        {
+            <a href="haikus/details/@h.Id"><span>@h.Text</span><span>@h.ActualRating</span></a>
+        }
+    </div>
+    
+</div>

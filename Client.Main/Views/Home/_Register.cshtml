@@ -1,0 +1,20 @@
+﻿@model Client.Main.Models.Haiku
+
+@using (Html.BeginForm("JsonRegister", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { Id = "registerForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Registration Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Text)
+                @Html.TextBoxFor(m => m.Text, new { id = "registerName" })
+            </li>
+            <li>
+                <input type="submit" value="Sign up" />
+            </li>
+        </ol>
+        @Html.ValidationSummary()
+    </fieldset>
+}

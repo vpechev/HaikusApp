@@ -1,0 +1,36 @@
+﻿@model  Client.Main.Models.Haiku
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <div> @Model.Text </div>
+    <div>
+        <span>Date: @Model.Date </span>
+        <span>Rating: @Model.ActualRating </span>
+    </div>
+    <div>
+        @{
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            listItems.Add(new SelectListItem { Text = "1", Value = "1" });
+            listItems.Add(new SelectListItem { Text = "2", Value = "2" });
+            listItems.Add(new SelectListItem { Text = "3", Value = "3" });
+            listItems.Add(new SelectListItem { Text = "4", Value = "4" });
+            listItems.Add(new SelectListItem { Text = "5", Value = "5" });
+        }
+        @Html.DropDownListFor(model => model.Rating, listItems, "-- Select Rating Value --")
+        <a>Rate</a>
+
+        <a href="">Update</a>
+        @Html.ActionLink("Update", "Validate", "Publish", new { controllerName = "haikus", actionName = "complaints", id = Model.Id }, new { @class = "modal" })
+        <a href="">Delete</a>
+        <div id="my-dialog"></div>
+        <a >Add Complaint</a>
+    </div>
+</div>
+
+
+
+

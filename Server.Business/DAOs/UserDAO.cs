@@ -10,7 +10,7 @@ namespace Server.Business.DAOs
     public class UserDAO : DAOEntity
     {
         public string Username { get; set; }
-        public string PublishCode { get; set; }
+        //public string PublishCode { get; set; }
         //public IList<HaikuDAO> Haikus { get; set; }
         public long ActualRating {get; set; }
 

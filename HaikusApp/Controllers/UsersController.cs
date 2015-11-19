@@ -44,7 +44,7 @@ namespace HaikusApp.Controllers
 
         [HttpGet]
         public UserDAO Get([FromUri]long id){
-            IBaseService<User> service = ServiceManager.GetServiceManager().CreateInstance<User>();
+            IBaseService<User> service = base.GetService();
             return ((UserService)service).Get(id);
         }
 

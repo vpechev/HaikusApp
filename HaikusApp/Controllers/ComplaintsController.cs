@@ -11,13 +11,19 @@ using System.Web.Http;
 
 namespace HaikusApp.Controllers
 {
+    [RoutePrefix("complaints")]
     public class ComplaintsController : BaseController<Complaint>
     {
         [HttpPost]
-        public Complaint Post(Complaint entity)
+        public Complaint Post([FromBody] Complaint entity)
         {
             IBaseService<Complaint> service = ServiceManager.GetServiceManager().CreateInstance<Complaint>();
             return ((ComplaintService)service).Add(entity);
+        }
+
+        public Complaint Get()
+        {
+            return null;
         }
 
         [HttpGet]
