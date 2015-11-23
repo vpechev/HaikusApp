@@ -5,29 +5,36 @@
     <title>@ViewBag.Title - My ASP.NET MVC Application</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
-    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/css")
 </head>
 <body>
-    <div id="userSettings">
-        @Html.Partial("_UserSettings")
-    </div>
-
-    <div id="body">
-        @RenderBody()
-    </div>
-
-    <footer>
-        <nav>
-            <ul id="menu">
-                <li>@Html.ActionLink("Todo List", "Index", "Home", new { area = "" }, null)</li>
-                <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
+    <div>
+        <div id="userSettings">
+            @Html.Partial("_UserSettings")
+        </div>
+        <div class="navbar navbar-inverse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Haikus", new { area = "" }, null)</li>
+                <li>@Html.ActionLink("Users", "All", "Users", new { skip = "0", take = "10" }, null)</li>
+                <li>@Html.ActionLink("Haikus", "Index", "Haikus", new { }, null)</li>
+                <li>@Html.ActionLink("Complaints", "ValidateList", "Publish", new { controllerName = "Complaints", actionName = "All", skip = 0, take = 10 }, new { @class = "modal-box" })</li>
+                <li>@Html.ActionLink("Register", "Index", "Home", new { }, null)
+                <div id="my-dialog"></div>
             </ul>
-        </nav> 
-        <p>Learn more about <a href="http://go.microsoft.com/fwlink/?LinkId=273732">Single Page Applications</a></p>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-    </footer>
+        </div>
+        <div id="body">
+            @RenderBody()
+        </div>
+
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">&copy; Haikus app - Vladimir Pechev</div>
+            </div>
+        </footer>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
@@ -42,8 +49,8 @@
                 modal: true
             });
 
-            $('.modal').click(function() {
-                $('#my-dialog').load(this.href, function() {
+            $('.modal-box').click(function () {
+                $('#my-dialog').load(this.href, function () {
                     $(this).dialog('open');
                 });
                 return false;

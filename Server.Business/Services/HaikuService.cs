@@ -1,4 +1,5 @@
 ﻿using Server.Business.DAOs;
+using Server.Business.Enums;
 using Server.Business.Exceptions;
 using Server.Data.Enums;
 using Server.Data.Managers;
@@ -23,6 +24,7 @@ namespace Server.Business.Services
 
         public Haiku Add(Haiku entity, string publishCode)
         {
+            entity.Date = DateTime.Now;
             var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
             long userId = base.GetUserIdByPublishCode(publishCode);       //simple level of security just checks whether there exists user with such publishCode 
             return repo.Add(entity, userId);
@@ -35,16 +37,16 @@ namespace Server.Business.Services
             repo.Remove(id);
         }
 
-        public HaikuDAO Get(long id)
+        public HaikuDTO Get(long id)
         {
             var repo = _dataManager.CreateInstance<Haiku>();
-            return new HaikuDAO(repo.Get(id));
+            return new HaikuDTO(repo.Get(id));
         }
 
-        public IList<HaikuDAO> Get(int skipCount, int takeCount, string orderType = null, SortingOrder sortingOrder = SortingOrder.ASC)
+        public IList<HaikuDTO> Get(int skipCount, int takeCount, HaikuSortBy orderType = HaikuSortBy.RatingValue, SortingOrder sortingOrder = SortingOrder.ASC)
         {
             var repo = _dataManager.CreateInstance<Haiku>();
-            return HaikuDAO.CovertToHaikuDAO(repo.Get(skipCount, takeCount, orderType, sortingOrder));
+            return HaikuDTO.CovertToHaikuDTO(repo.Get(skipCount, takeCount, orderType.ToString(), sortingOrder));
         }
 
 
@@ -55,12 +57,12 @@ namespace Server.Business.Services
             repo.Update(entity, userId);
         }
         
-        public HaikuDAO RateHaiku(long haikuId, int ratingValue)
+        public HaikuDTO RateHaiku(long haikuId, int ratingValue)
         {
             if (ratingValue < 0 || ratingValue > 5)
                 throw new InvalidRatingValueException();
             var repo = _dataManager.CreateInstance<Haiku>();
-            return new HaikuDAO(((HaikuRepository)repo).UpdateHaikuRating(haikuId, ratingValue));
+            return new HaikuDTO(((HaikuRepository)repo).UpdateHaikuRating(haikuId, ratingValue));
 
         }
 

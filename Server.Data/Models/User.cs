@@ -9,26 +9,29 @@ namespace Server.Data.Models
 {
     public class User : Identifiable
     {
-        private long _actualRating;
-
         public string Username { get; set; }
         public string PublishCode { get; set; }
         //public IList<long> BlockedUserIds { get; set; }
         public IList<Haiku> Haikus { get; set; }
         public long RatingValue { get; set; }
         public long RatersCount { get; set; }
-        public long ActualRating
+        public double ActualRating
         {
             get
             {
                 if (RatersCount != 0)
                 {
-                    return RatingValue / RatersCount;
+                    return computeActualRating();
                 }
                 return 0;
             }
-            set { this._actualRating = value; }             
         }
         public bool IsVip { get; set; }
+
+
+        private double computeActualRating()
+        {
+            return (double)RatingValue / RatersCount;
+        }
     }
 }

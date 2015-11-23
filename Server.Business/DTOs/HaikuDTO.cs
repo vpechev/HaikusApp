@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Server.Business.DAOs
 {
-    public class HaikuDAO : DAOEntity
+    public class HaikuDTO : DAOEntity
     {
         public string Text { get; set; }
         public long UserId { get; set; }
         public IList<Rating> Ratings { get; set; }
-        public long ActualRating { get; set; }
+        public double ActualRating { get; set; }
 
-        public HaikuDAO (Haiku h)
+        public HaikuDTO (Haiku h)
 	    {
             this.Id = h.Id;
             this.IsDeleted = h.IsDeleted;
@@ -24,12 +24,12 @@ namespace Server.Business.DAOs
                 
 	    }
 
-        public static IList<HaikuDAO> CovertToHaikuDAO(IList<Haiku> list)
+        public static IList<HaikuDTO> CovertToHaikuDTO(IList<Haiku> list)
         {
-            List<HaikuDAO> daos = new List<HaikuDAO>(list.Count);
+            List<HaikuDTO> daos = new List<HaikuDTO>(list.Count);
             foreach (var dao in list)
             {
-                daos.Add(new HaikuDAO(dao));
+                daos.Add(new HaikuDTO(dao));
             }
             return daos;
         }

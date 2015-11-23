@@ -32,6 +32,7 @@ namespace Server.Data.Repositories
         #region Query properties
         public override string InsertQuery { get { return Sql.InsertStatements.InsertComplaintQuery; } }
         public override string UpdateByIdQuery { get { return ""; } }
+        public override string SelectAllQuery { get { return Sql.SelectStatements.SelectAllComplaints; } }
         public override string TableName { get { return "ComplaintForHaikus"; } }
         public override string TableColumns { get { return EntityColumnsConstants.ComplaintForHaikusColumns; } }
         #endregion

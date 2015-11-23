@@ -18,6 +18,12 @@ namespace Client.Main.Controllers
             return PartialView(model);
         }
 
+        public ActionResult ValidateList(string controllerName, string actionName, int skip = 0, int take = 10)
+        {
+            var model = new PublishModel(controllerName, actionName, skip, take);
+            return PartialView("Validate", model);
+        }
+
         // POST: /Publish
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -28,7 +34,7 @@ namespace Client.Main.Controllers
                 return this.RedirectToAction(model.ActionName, model.ControllerName, new { id=model.EntityId, publishCode = model.Code });
             }
 
-            return this.RedirectToAction(model.ActionName, model.ControllerName, new { publishCode = model.Code });
+            return this.RedirectToAction(model.ActionName, model.ControllerName, new { model.Skip, model.Take, publishKey = model.Code });
         }
 
     }

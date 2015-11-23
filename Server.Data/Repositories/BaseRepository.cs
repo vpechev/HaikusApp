@@ -14,6 +14,7 @@ using System.Configuration;
 using Server.Data.Enums;
 using Server.Data.Utils;
 using Server.Data.Models.BaseClasses;
+using System.Text.RegularExpressions;
 
 namespace Server.Data.Repositories
 {
@@ -52,16 +53,16 @@ namespace Server.Data.Repositories
 
         public virtual IList<T> Get(int skipCount, int takeCount, string orderType = null, SortingOrder sortingOrder = SortingOrder.ASC)
         {
-            string orderValue;
-            try
-            {
-                orderValue = FindProperty(typeof(T), orderType);
-            }
-            catch (ArgumentNullException)
-            {
-                orderValue = "Id";
-                //throw new ArgumentException("The property does not exist", e);
-            }
+            string orderValue = orderType?? "Id";
+            //try
+            //{
+            //    orderValue = FindProperty(typeof(T), orderType);
+            //}
+            //catch (ArgumentNullException)
+            //{
+            //    orderValue = "Id";
+            //    //throw new ArgumentException("The property does not exist", e);
+            //}
 
             return DBConnection.Query<T>(SelectAllWithPaging(orderValue, sortingOrder.ToString()), new { OffsetCount = skipCount, FetchedElements = takeCount }).ToList();
         }
@@ -93,9 +94,9 @@ namespace Server.Data.Repositories
             }
         }
 
-        public static long? GetUserIdByPublishCode(string hashedCode)
+        public long? GetUserIdByPublishCode(string hashedCode)
         {
-            long userId = DBConnection.Query<long>(SelectUserIdByPublishCodeQuery, new { PublishCode = hashedCode }).First();
+            long userId = DBConnection.Query<long>(SelectUserIdByPublishCodeQuery, new { PublishCode = hashedCode }).FirstOrDefault();
             return userId;
         }
 
@@ -114,13 +115,13 @@ namespace Server.Data.Repositories
         //    return SelectAllQuery + this.GetQueryWithPaging(orderType);
         //}
 
-        protected static string FindProperty(Type type, string value)
-        {
-            // Get the PropertyInfo object by passing the property name.
-            PropertyInfo myPropInfo = type.GetProperty(value);
-            // Display the property name.
-            return myPropInfo.Name;
-        }
+        //protected static string FindProperty(Type type, string value)
+        //{
+        //    // Get the PropertyInfo object by passing the property name.
+        //    PropertyInfo myPropInfo = type.GetProperty(value);
+        //    // Display the property name.
+        //    return myPropInfo.Name;
+        //}
 
 
         public void Dispose()

@@ -17,6 +17,7 @@ namespace Server.Data.Repositories
             if (entity.PublishCode == null)
                 throw new NullReferenceException("new user cannot be created without publish code");
             var securedPublishCode = PublishCodeEncrypter.GenerateSHA256Hash(entity.PublishCode);
+
             var entityId = DBConnection.Query<long>(InsertQuery, new { Username = entity.Username, PublishCode = securedPublishCode, IsDeleted = entity.IsDeleted, IsVip = entity.IsVip }).FirstOrDefault();
             entity.Id = entityId;
             entity.PublishCode = null; // we don't want to return the publish code
@@ -39,13 +40,23 @@ namespace Server.Data.Repositories
             return DBConnection.Query<User>(this.SelectVIPUsersQuery).ToList<User>();
         }
 
-        
+        public override User Get(long id)
+        {
+            User res = DBConnection.Query<User>(SelectByIdQuery, new { Id = id }).FirstOrDefault<User>();
+            if (res == null)
+                throw new KeyNotFoundException();
+
+            res.Haikus = DBConnection.Query<Haiku>(SelectAllHaikusByUserId, new { UserId = res.Id }).ToList();
+
+            return res;
+        }        
 
         #region Query properties
         public override string InsertQuery { get { return Sql.InsertStatements.InsertUserQuery; } }
         public override string UpdateByIdQuery { get { return Sql.UpdateStatements.UpdateUserByIdQuery; } }
         public string UpdateVipStatusByIdQuery { get { return Sql.UpdateStatements.UpdateVipStatusByIdQuery; } }
         public string SelectVIPUsersQuery { get { return Sql.SelectStatements.SelectVIPUsersQuery; } }
+        public string SelectAllHaikusByUserId { get { return Sql.SelectStatements.SelectAllHaikusByUserId; } }
         public override string SelectAllQuery { get { return Sql.SelectStatements.SelectAllUsers; } }
         public override string TableName { get { return "Users"; } }
         public override string TableColumns { get { return EntityColumnsConstants.UserColumnsWithId; } }

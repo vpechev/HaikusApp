@@ -1,0 +1,23 @@
+﻿@model Client.Main.Models.AddHaiku
+
+@using (Html.BeginForm("Add", "Haikus", new { }, FormMethod.Post, new { Id = "addhaiku" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Haiku</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Text)
+                @Html.TextAreaFor(m => m.Text, 20, 100, new { id = "haikuText" })
+
+                @Html.LabelFor(m => m.PublishCode)
+                @Html.TextBoxFor(m => m.PublishCode, new { id = "registerName" })
+
+            </li>
+            <li>
+                <input type="submit" value="Submit!" />
+            </li>
+        </ol>
+    </fieldset>
+}

@@ -11,21 +11,26 @@ using Newtonsoft.Json;
 
 namespace Client.Main.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        public async Task<ActionResult> Index(string returnUrl)
+        public ActionResult Index()
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return null;
-            
+            return View("_Register");
         }
-
-        public async Task<ActionResult> Register(string returnUrl)
+        
+        [HttpPost]
+        public async Task<ActionResult> Register(User entity)
         {
-            ViewBag.ReturnUrl = returnUrl;
-
-            //return this.View(await this.GetHaikuByIdAsync(11));
-            return null;
+            if (String.IsNullOrEmpty(entity.Username) || String.IsNullOrEmpty(entity.PublishCode))
+            {
+                return null;
+            }
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var uri = string.Format(BaseController.uriFormatBase, "Users");
+                await httpClient.PostAsJsonAsync(uri, entity);
+            }
+            return RedirectToAction("All", "Haikus");
         }
 
 

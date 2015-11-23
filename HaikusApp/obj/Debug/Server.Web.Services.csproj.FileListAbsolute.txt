@@ -1,4 +1,3 @@
-D:\HaikusApp\HaikusApp\obj\Debug\Server.Web.Services.csprojResolveAssemblyReference.cache
 D:\HaikusApp\HaikusApp\bin\NLog.config
 D:\HaikusApp\HaikusApp\bin\HaikusApp.dll.config
 D:\HaikusApp\HaikusApp\bin\HaikusApp.dll
@@ -77,5 +76,6 @@ D:\HaikusApp\HaikusApp\bin\Microsoft.Owin.Security.Twitter.xml
 D:\HaikusApp\HaikusApp\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\HaikusApp\HaikusApp\bin\System.Web.Http.Owin.xml
 D:\HaikusApp\HaikusApp\bin\NLog.xml
+D:\HaikusApp\HaikusApp\obj\Debug\Server.Web.Services.csprojResolveAssemblyReference.cache
 D:\HaikusApp\HaikusApp\obj\Debug\HaikusApp.dll
 D:\HaikusApp\HaikusApp\obj\Debug\HaikusApp.pdb

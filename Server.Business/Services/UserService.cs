@@ -8,6 +8,7 @@ using Server.Data.Managers;
 using Server.Data.Enums;
 using Server.Data.Repositories;
 using Server.Business.DAOs;
+using Server.Business.Enums;
 
 namespace Server.Business.Services
 {
@@ -30,16 +31,16 @@ namespace Server.Business.Services
                 throw new MissingInputDataException();
         }
 
-        public UserDAO Get(long id)
+        public FullUserDTO Get(long id)
         {
             var repo = _dataManager.CreateInstance<User>();
-            return new UserDAO(repo.Get(id));
+            return new FullUserDTO(repo.Get(id));
         }
 
-        public IList<User> Get(int skipCount, int takeCount, string orderType = null, SortingOrder sortingOrder = SortingOrder.ASC)
+        public IList<User> Get(int skipCount, int takeCount, UserSortBy orderType = UserSortBy.RatingValue, SortingOrder sortingOrder = SortingOrder.ASC)
         {
             var repo = _dataManager.CreateInstance<User>();
-            return repo.Get(skipCount, takeCount, orderType, sortingOrder);
+            return repo.Get(skipCount, takeCount, orderType.ToString(), sortingOrder);
         }
 
         public void PromoteToVip(string publishCode, long id)

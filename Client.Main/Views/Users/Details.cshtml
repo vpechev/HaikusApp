@@ -3,19 +3,55 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
     <div><h2>Username:</h2> @Model.Username  </div>
-    <div><strong>Rating:</strong> @Model.ActualRating</div>
-    <div><strong>VIP Status:</strong> @Model.IsVip</div>
+    <div><strong>Rating:</strong> @Math.Round(@Model.ActualRating, 2)</div>
+    <div><strong>VIP Status:</strong> @if(Model.IsVip){ <span>Yes</span> }else{ <span>No</span> }</div>
     
-    <h3>Haikus</h3>
     <div>
-        @foreach (var h in Model.Haikus)
+        @if (Model.Haikus != null && Model.Haikus.Count > 0)
         {
-            <a href="haikus/details/@h.Id"><span>@h.Text</span><span>@h.ActualRating</span></a>
+            <h3>Haikus: </h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Content</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var h in Model.Haikus)
+                    {
+                        <tr>
+                            <td>
+                                <a href="../../haikus/details/@h.Id">
+                                    <span>
+                                        @if (h.Text.Length > 50)
+                                        {
+                                            @h.Text.Substring(0, 50)
+                                        }
+                                        else
+                                        {
+                                            @h.Text
+                                        }
+                                        ...
+                                    </span>
+                                </a>
+                            </td>
+                            <td>@Math.Round(@h.ActualRating, 2)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
     </div>
-    
+
+    @*@if(!Model.IsVip){*@
+        @Html.ActionLink("Make VIP", "Validate", "Publish", new { controllerName = "users", actionName = "PromoteToVIP", id = @Model.Id }, new { @class = "modal-box btn btn-success" })
+    @* } *@
+
+    @Html.ActionLink("Delete all Haikus", "Validate", "Publish", new { controllerName = "users", actionName = "PromoteToVIP", id = @Model.Id }, new { @class = "modal-box btn btn-danger" })
+    @Html.ActionLink("Delete user", "Validate", "Publish", new { controllerName = "users", actionName = "PromoteToVIP", id = @Model.Id }, new { @class = "modal-box btn btn-danger" })
+    @Html.ActionLink("Delete user with all haikus", "Validate", "Publish", new { controllerName = "users", actionName = "PromoteToVIP", id = @Model.Id }, new { @class = "modal-box btn btn-danger" })
+
 </div>

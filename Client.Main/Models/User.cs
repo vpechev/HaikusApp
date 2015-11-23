@@ -7,7 +7,7 @@ namespace Client.Main.Models
 {
     public class User
     {
-        private long _actualRating;
+        private double _actualRating;
 
         public long Id { get; set; }
         public bool IsDeleted { get; set; }
@@ -17,18 +17,7 @@ namespace Client.Main.Models
         public IList<Haiku> Haikus { get; set; }
         public long RatingValue { get; set; }
         public long RatersCount { get; set; }
-        public long ActualRating
-        {
-            get
-            {
-                if (RatersCount != 0)
-                {
-                    return RatingValue / RatersCount;
-                }
-                return 0;
-            }
-            set { this._actualRating = value; }
-        }
+        public double ActualRating { get; set; }
         public bool IsVip { get; set; }
     }
 }

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Client.Main.Models.Complaint>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Complaints</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Haiku</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Date</td>
+                <td>
+                    <a href="../haikus/details/@c.HaikuId"> <span> Go to Haiku </span> </a>
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

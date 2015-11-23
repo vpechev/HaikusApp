@@ -18,6 +18,16 @@
             this.EntityId = entityId;
         }
 
+        public PublishModel(string controllerName, string actionName, int skip, int take)
+            : this(controllerName, actionName)
+        {
+            this.Skip = skip;
+            this.Take = take;
+        }
+
+        public int Skip { get; set; }
+        public int Take { get; set; }
+
         public string ControllerName { get; set; }
 
         public string ActionName { get; set; }

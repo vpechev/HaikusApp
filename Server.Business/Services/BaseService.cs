@@ -1,6 +1,7 @@
 ﻿using Server.Business.DI;
 using Server.Business.DI.Interfaces;
 using Server.Data.Managers;
+using Server.Data.Models;
 using Server.Data.Models.BaseClasses;
 using Server.Data.Models.Interfaces;
 using Server.Data.Repositories;
@@ -27,7 +28,12 @@ namespace Server.Business.Services
             if (code != null)
             {
                 string hashedCode = PublishCodeEncrypter.GenerateSHA256Hash(code);
-                long? userId = BaseRepository<Identifiable>.GetUserIdByPublishCode(hashedCode);
+
+                var repo =  Server.Data.Managers.DataManager.GetDataManager().CreateInstance<Haiku>(hashedCode);
+                long? userId =((BaseRepository<Haiku>)repo).GetUserIdByPublishCode(hashedCode);
+
+
+
                 if (userId != null & (IsAdminPublishCode(hashedCode) || userId > 0) )
                     return userId.Value;
             }

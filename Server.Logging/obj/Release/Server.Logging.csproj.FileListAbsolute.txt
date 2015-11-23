@@ -8,3 +8,13 @@ D:\VisualizationService\app\Server.Logging\bin\Release\NLog.xml
 D:\VisualizationService\app\Server.Logging\obj\Release\Server.Logging.csprojResolveAssemblyReference.cache
 D:\VisualizationService\app\Server.Logging\obj\Release\Server.Logging.dll
 D:\VisualizationService\app\Server.Logging\obj\Release\Server.Logging.pdb
+D:\HaikusApp\Server.Logging\bin\Release\NLog.config
+D:\HaikusApp\Server.Logging\bin\Release\Server.Logging.dll
+D:\HaikusApp\Server.Logging\bin\Release\Server.Logging.pdb
+D:\HaikusApp\Server.Logging\bin\Release\Newtonsoft.Json.dll
+D:\HaikusApp\Server.Logging\bin\Release\NLog.dll
+D:\HaikusApp\Server.Logging\bin\Release\Newtonsoft.Json.xml
+D:\HaikusApp\Server.Logging\bin\Release\NLog.xml
+D:\HaikusApp\Server.Logging\obj\Release\Server.Logging.csprojResolveAssemblyReference.cache
+D:\HaikusApp\Server.Logging\obj\Release\Server.Logging.dll
+D:\HaikusApp\Server.Logging\obj\Release\Server.Logging.pdb

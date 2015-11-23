@@ -52,9 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAOs\DAOEntity.cs" />
-    <Compile Include="DAOs\HaikuDAO.cs" />
-    <Compile Include="DAOs\UserDAO.cs" />
+    <Compile Include="DTOs\DTOEntity.cs" />
+    <Compile Include="DTOs\HaikuDTO.cs" />
+    <Compile Include="DTOs\UserDTO.cs" />
+    <Compile Include="Enums\HaikuSortBy.cs" />
+    <Compile Include="Enums\UserSortBy.cs" />
     <Compile Include="Services\Interfaces\IBaseService.cs" />
     <Compile Include="DI\ServiceObjectContainer.cs" />
     <Compile Include="Exceptions\InvalidPublishCodeException.cs" />

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Client.Main.Models.User>
+@{
+    ViewBag.Title = "Users";
+}
+
+<header>
+    <h1>@ViewBag.Title</h1>
+</header>
+
+<div id="main-content">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var u in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="details/@u.Id">
+                            <span>
+                                @u.Username      
+                            </span>
+                        </a>
+                    </td>
+                    <td>@Math.Round(@u.ActualRating, 2)</td>
+                </tr>
+            }
+
+            @if (ViewBag.Skip > 0)
+            {
+                var skip = ViewBag.Skip - ViewBag.Take;
+                var take = ViewBag.Take;
+                @*<a href="../haikus/all?skip=@skip&take=@take">Previous Page</a>*@
+                @Html.ActionLink(" Previous Page ", "All", "Users", new { skip = ViewBag.Skip - ViewBag.Take, take = ViewBag.Take }, null)
+            }
+            @if (Model.ToList().Count >= ViewBag.Take)
+            {
+                var skip = ViewBag.Skip + ViewBag.Take;
+                var take = ViewBag.Take;
+                @*<a href="../haikus/all?skip=@skip&take=@take">Next Page</a>*@
+                @Html.ActionLink(" Next Page ", "All", "Users", new { skip = ViewBag.Skip + ViewBag.Take, take = ViewBag.Take }, null)
+            }
+        </tbody>
+    </table>
+</div>

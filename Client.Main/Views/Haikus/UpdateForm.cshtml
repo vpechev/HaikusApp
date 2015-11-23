@@ -1,0 +1,22 @@
+﻿@model Client.Main.Models.Haiku
+@{
+    ViewBag.Title = "Update Haiku";
+}
+
+@using (Html.BeginForm("Update", "Haikus", new { id = Model.Id, publishCode = Model.PublishCode }, FormMethod.Post, new { Id = "addhaiku" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Haiku</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Text)
+                @Html.TextAreaFor(m => m.Text, 20, 100, new { id = "haikuText" })
+            </li>
+            <li>
+                <input type="submit" value="Submit!" />
+            </li>
+        </ol>
+    </fieldset>
+}

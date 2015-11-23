@@ -14,20 +14,14 @@ namespace HaikusApp.Controllers
     [RoutePrefix("complaints")]
     public class ComplaintsController : BaseController<Complaint>
     {
-        [HttpPost]
-        public Complaint Post([FromBody] Complaint entity)
+        public Complaint Post(Complaint entity)
         {
             IBaseService<Complaint> service = ServiceManager.GetServiceManager().CreateInstance<Complaint>();
             return ((ComplaintService)service).Add(entity);
         }
 
-        public Complaint Get()
-        {
-            return null;
-        }
-
         [HttpGet]
-        public IList<Complaint> Get(int skip,int take)
+        public IList<Complaint> Get([FromUri]int skip, [FromUri]int take)
         {
             var publishCode = base.GettingPublishCode();
             IBaseService<Complaint> service = ServiceManager.GetServiceManager().CreateInstance<Complaint>();

@@ -2,6 +2,7 @@
 using HaikusApp.Exceptions.Filters;
 using Server.Business.DAOs;
 using Server.Business.DI.Interfaces;
+using Server.Business.Enums;
 using Server.Business.Managers;
 using Server.Business.Services;
 using Server.Data.Enums;
@@ -29,7 +30,7 @@ namespace HaikusApp.Controllers
 
         [HttpPost]
         [Route("{id}/ratings")]
-        public HaikuDAO PostRating(long id, [FromBody]int ratingValue)
+        public HaikuDTO PostRating([FromUri]long id, [FromBody]int ratingValue)
         {
             IBaseService<Haiku> service = ServiceManager.GetServiceManager().CreateInstance<Haiku>();
             ((HaikuService)service).RateHaiku(id, ratingValue);
@@ -37,8 +38,7 @@ namespace HaikusApp.Controllers
         }
 
         [HttpGet]
-        [Route("All")]
-        public IList<HaikuDAO> Get([FromUri]int skip, int take, string orderType, SortingOrder sortingOrder)
+        public IList<HaikuDTO> Get([FromUri]int skip, [FromUri]int take, [FromUri]HaikuSortBy orderType, [FromUri]SortingOrder sortingOrder)
         {
             IBaseService<Haiku> service = ServiceManager.GetServiceManager().CreateInstance<Haiku>();
             return ((HaikuService)service).Get(skip, take, orderType, sortingOrder);
@@ -46,7 +46,7 @@ namespace HaikusApp.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public HaikuDAO Get([FromUri]long id)
+        public HaikuDTO Get([FromUri]long id)
         {
             IBaseService<Haiku> service = GetService();
             return ((HaikuService)service).Get(id);
@@ -60,8 +60,9 @@ namespace HaikusApp.Controllers
             ((HaikuService)service).Update(entity, publishCode);
         }
 
-        [HttpDelete]
-        public void Delete(long id)
+        [RouteAttribute("DELETE")]
+        [AcceptVerbs("DELETE")]
+        public void Delete([FromUri]long id)
         {
             var publishCode = base.GettingPublishCode();
             IBaseService<Haiku> service = ServiceManager.GetServiceManager().CreateInstance<Haiku>();

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Client.Main.Models.Haiku>
+@{
+    ViewBag.Title = "Haikus";
+}
+@functions{
+    public string GetAntiForgeryToken()
+    {
+        string cookieToken, formToken;
+        AntiForgery.GetTokens(null, out cookieToken, out formToken);
+        return cookieToken + ":" + formToken;                
+    }
+}
+
+<header>
+    <h1>@ViewBag.Title</h1>
+</header>
+
+<div>
+    <a href="haikus/RedirectToAddHaiku" class="btn btn-success">Write a Haiku</a>
+</div>
+
+<div id="main-content">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var h in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="../haikus/details/@h.Id">
+                            <span>
+                                @if(h.Text.Length > 50){ 
+                                    @h.Text.Substring(0,50)
+                                } 
+                                else {
+                                    @h.Text
+                                }
+                                ...
+                            </span>
+                        </a>
+                    </td>
+                    <td>@Math.Round(@h.ActualRating, 2)</td>
+                </tr>
+            }
+            
+            
+            @if (ViewBag.Skip > 0)
+            {
+                var skip = ViewBag.Skip - ViewBag.Take;
+                var take = ViewBag.Take;
+                @*<a href="../haikus/all?skip=@skip&take=@take">Previous Page</a>*@
+                @Html.ActionLink(" Previous Page ", "All", "Haikus", new { skip = ViewBag.Skip - ViewBag.Take, take = ViewBag.Take }, null)
+            }
+            @if (Model.ToList().Count >= ViewBag.Take)
+            {
+                var skip = ViewBag.Skip + ViewBag.Take;
+                var take = ViewBag.Take;
+                @*<a href="../haikus/all?skip=@skip&take=@take">Next Page</a>*@
+                @Html.ActionLink(" Next Page ", "All", "Haikus", new { skip = ViewBag.Skip + ViewBag.Take, take = ViewBag.Take }, null)
+            }
+            
+        </tbody>
+    </table>
+    @*<div class="todoList" id="loginPanel">
+        <p>First time here? <a id="showRegister">Sign up</a></p>
+    </div>*@
+    @*<div class="todoList" id="registerPanel">
+        <h2>Sign up</h2>
+        @Html.Partial("_Register")
+        <p>Already signed up? <a id="showLogin">Log in</a></p>
+    </div>*@
+</div>
+
+@if (@User.Identity.IsAuthenticated)
+{
+    @section scripts {
+        @Scripts.Render("~/bundles/knockout")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/todo")
+    }
+}

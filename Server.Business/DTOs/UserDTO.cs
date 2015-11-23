@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Server.Business.DAOs
 {
-    public class UserDAO : DAOEntity
+    public class UserDTO : DAOEntity
     {
         public string Username { get; set; }
         //public string PublishCode { get; set; }
         //public IList<HaikuDAO> Haikus { get; set; }
-        public long ActualRating {get; set; }
+        public double ActualRating {get; set; }
 
-        public UserDAO(User u)
+        public UserDTO(User u)
         {
             this.Id = u.Id;
             this.IsDeleted = u.IsDeleted;
@@ -22,14 +22,24 @@ namespace Server.Business.DAOs
             this.ActualRating = u.ActualRating;
         }
 
-        public static IList<UserDAO> CovertToUserDAO(IList<User> list)
+        public static IList<UserDTO> CovertToUserDTO(IList<User> list)
         {
-            List<UserDAO> daos = new List<UserDAO>(list.Count);
+            List<UserDTO> daos = new List<UserDTO>(list.Count);
             foreach (var dao in list)
             {
-                daos.Add(new UserDAO(dao));
+                daos.Add(new UserDTO(dao));
             }
             return daos;
         }
+    }
+
+    public class FullUserDTO : UserDTO
+    {
+        public FullUserDTO(User u)
+            : base(u)
+        {
+            this.Haikus = HaikuDTO.CovertToHaikuDTO(u.Haikus);
+        }
+        public IList<HaikuDTO> Haikus { get; set; }
     }
 }

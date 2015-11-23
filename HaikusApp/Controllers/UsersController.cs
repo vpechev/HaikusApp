@@ -3,6 +3,7 @@ using HaikusApp.Exceptions;
 using HaikusApp.Exceptions.Filters;
 using Server.Business.DAOs;
 using Server.Business.DI.Interfaces;
+using Server.Business.Enums;
 using Server.Business.Managers;
 using Server.Business.Services;
 using Server.Data.Enums;
@@ -17,6 +18,7 @@ using System.Web.Http;
 namespace HaikusApp.Controllers
 {
     [CustomExceptionFilter]
+    [RoutePrefix("users")]
     public class UsersController : BaseController<User>
     {
         [HttpPost]
@@ -28,7 +30,7 @@ namespace HaikusApp.Controllers
 
         [HttpPut]
         [Route("{id}/vip")]
-        public void Put(long id)
+        public void Put([FromUri]long id)
         {
             var publishCode = base.GettingPublishCode();
             IBaseService<User> service = ServiceManager.GetServiceManager().CreateInstance<User>();
@@ -36,16 +38,18 @@ namespace HaikusApp.Controllers
         }
 
         [HttpGet]
-        public IList<UserDAO> Get([FromUri] int skip, [FromUri]int take, string orderType, SortingOrder sortingOrder)
+        public IList<UserDTO> Get([FromUri] int skip, [FromUri]int take, UserSortBy orderType, SortingOrder sortingOrder = SortingOrder.ASC)
         {
             IBaseService<User> service = ServiceManager.GetServiceManager().CreateInstance<User>();
-            return UserDAO.CovertToUserDAO(((UserService)service).Get(skip, take, orderType, sortingOrder));
+            return UserDTO.CovertToUserDTO(((UserService)service).Get(skip, take, orderType, sortingOrder));
         }
 
         [HttpGet]
-        public UserDAO Get([FromUri]long id){
+        public FullUserDTO Get([FromUri]long id)
+        {
             IBaseService<User> service = base.GetService();
-            return ((UserService)service).Get(id);
+            var user= ((UserService)service).Get(id);;
+            return user;
         }
 
         [HttpDelete]

@@ -12,6 +12,7 @@ namespace Server.Data.Constants
     {
         public static IList<string> AdminKeys = new List<string>(){
              PublishCodeEncrypter.GenerateSHA256Hash("some admin key")
+             //"some admin key"
         };
     }
 }

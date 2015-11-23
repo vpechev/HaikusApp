@@ -9,25 +9,27 @@ namespace Server.Data.Models
 {
     public class Haiku : Identifiable
     {
-        private long _actualRating;
-
         public string Text { get; set; }
         public long UserId { get; set; }
         public IList<Rating> Ratings { get; set; }
         public long RatingValue { get; set; }
         public long RatersCount { get; set; }
-        public long ActualRating 
+        public double ActualRating 
         {
             get
             {
                 if (RatersCount != 0)
                 {
-                    return RatingValue / RatersCount;
+                    return computeActualRating();
                 }
                 return 0;
             }
-            set { this._actualRating = value;  }
         }
         public DateTime Date { get; set; }
+
+        private double computeActualRating()
+        {
+            return (double)RatingValue / RatersCount;
+        }
     }
 }
