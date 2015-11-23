@@ -13,6 +13,7 @@
             <tr>
                 <th>Username</th>
                 <th>Rating</th>
+                <th>VIP</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,14 @@
                         </a>
                     </td>
                     <td>@Math.Round(@u.ActualRating, 2)</td>
+                    @if (u.IsVip) { 
+                        <td>Yes</td>
+                    }
+                    else
+                    {
+                        <td>No</td>
+                    }
+                        
                 </tr>
             }
 

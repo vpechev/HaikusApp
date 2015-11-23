@@ -46,6 +46,13 @@ namespace Server.Business.Services
             return BaseRepository<Identifiable>.IsAdminPublishCode(code);
         }
 
+        public bool HasPrivileges(string code)
+        {
+            if (IsAdminPublishCode(code) || GetUserIdByPublishCode(code) > 0)
+                return true;
+            return false;
+        }
+
         public DataManager DataManager
         {
             get 

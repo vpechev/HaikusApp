@@ -36,9 +36,14 @@ namespace Client.Main.Controllers
                 httpClient.DefaultRequestHeaders.Add("publishKey", "some admin key");
                 await httpClient.PutAsJsonAsync( (string.Format(uriFormat + @"/vip", "users", id)), new Haiku());
             }
-            return this.View("Details", await base.GetByIdAsync<User>(ControllerName, id));
+            return this.RedirectToAction("Details", "Users", new { id });
         }
 
+        public async Task<ActionResult> Delete(int id, string publishCode)
+        {
+            await base.Delete<Haiku>("users", publishCode, id);
+            return RedirectToAction("Index", "Haikus");
+        }
 
     }
 }

@@ -24,5 +24,21 @@
                 
             </tr>
         }
+
+        @if (ViewBag.Skip > 0)
+        {
+            var skip = ViewBag.Skip - ViewBag.Take;
+            var take = ViewBag.Take;
+            @*<a href="../haikus/all?skip=@skip&take=@take">Previous Page</a>*@
+            @Html.ActionLink(" Previous Page ", "All", "Haikus", new { skip = ViewBag.Skip - ViewBag.Take, take = ViewBag.Take }, null)
+        }
+        @if (Model.ToList().Count >= ViewBag.Take)
+        {
+            var skip = ViewBag.Skip + ViewBag.Take;
+            var take = ViewBag.Take;
+            @*<a href="../haikus/all?skip=@skip&take=@take">Next Page</a>*@
+            @Html.ActionLink(" Next Page ", "All", "Haikus", new { skip = ViewBag.Skip + ViewBag.Take, take = ViewBag.Take }, null)
+        }
+        
     </tbody>
 </table>

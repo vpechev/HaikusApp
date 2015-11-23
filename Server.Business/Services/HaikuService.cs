@@ -30,12 +30,6 @@ namespace Server.Business.Services
             return repo.Add(entity, userId);
         }
 
-        public void Remove(long id, string publishCode)
-        {
-            var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
-            base.GetUserIdByPublishCode(publishCode);       //simple level of security just checks whether there exists user with such publishCode 
-            repo.Remove(id);
-        }
 
         public HaikuDTO Get(long id)
         {
@@ -66,6 +60,13 @@ namespace Server.Business.Services
 
         }
 
+        public void Remove(long id, string publishCode)
+        {
+            var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
+            if (base.HasPrivileges(publishCode))
+                repo.Remove(id);
+        }
+
         public void DeleteAllHaikusPerUser(string publishCode)
         {
             var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
@@ -73,12 +74,12 @@ namespace Server.Business.Services
             ((HaikuRepository)repo).DeleteAllHaikusByUserId(userId);
         }
 
-        public void Delete(long id, string publishCode)
-        {
-            var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
-            base.GetUserIdByPublishCode(publishCode);
-            ((HaikuRepository)repo).Remove(id);
-        }
+        //public void Delete(long id, string publishCode)
+        //{
+        //    var repo = (HaikuRepository)_dataManager.CreateInstance<Haiku>(publishCode);
+        //    base.GetUserIdByPublishCode(publishCode);
+        //    ((HaikuRepository)repo).Remove(id);
+        //}
 
         //public void AddComplaint(long haikuId)
         //{

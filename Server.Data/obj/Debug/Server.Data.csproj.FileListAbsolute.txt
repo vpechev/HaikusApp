@@ -12,3 +12,4 @@ D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
 D:\HaikusApp\Server.Data\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
 D:\HaikusApp\Server.Data\obj\Debug\Server.Data.dll
 D:\HaikusApp\Server.Data\obj\Debug\Server.Data.pdb
+D:\HaikusApp\Server.Data\obj\Debug\Server.Data.csprojResolveAssemblyReference.cache

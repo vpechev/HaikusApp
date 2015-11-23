@@ -58,6 +58,8 @@ namespace Server.Data.Repositories
         public string SelectVIPUsersQuery { get { return Sql.SelectStatements.SelectVIPUsersQuery; } }
         public string SelectAllHaikusByUserId { get { return Sql.SelectStatements.SelectAllHaikusByUserId; } }
         public override string SelectAllQuery { get { return Sql.SelectStatements.SelectAllUsers; } }
+        public override string DeleteByIdQuery { get { return Sql.DeleteStatements.DeleteUserWithHaikusByUserId; } }
+
         public override string TableName { get { return "Users"; } }
         public override string TableColumns { get { return EntityColumnsConstants.UserColumnsWithId; } }
         #endregion

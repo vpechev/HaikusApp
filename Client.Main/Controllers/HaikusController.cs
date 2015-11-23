@@ -66,6 +66,19 @@ namespace Client.Main.Controllers
             await base.Delete<Haiku>("haikus", publishCode, id);
             return RedirectToAction("Index", "Haikus");
         }
+
+        public async Task<ActionResult> DeleteAllHaikus(string publishKey)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var uri = string.Format(uriFormatBase + "/all", ControllerName);
+                httpClient.DefaultRequestHeaders.Add("publishKey", publishKey);
+                //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                await httpClient.DeleteAsync(uri);
+            }
+
+            return RedirectToAction("Index", "Haikus");
+        }
         
 
         public async Task<ActionResult> Complaints(int id)

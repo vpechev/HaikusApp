@@ -53,15 +53,15 @@ namespace HaikusApp.Controllers
         }
 
         [HttpPut]
-        public void Put(Haiku entity)
+        public void Put([FromBody]Haiku entity)
         {
             var publishCode = base.GettingPublishCode();
             IBaseService<Haiku> service = ServiceManager.GetServiceManager().CreateInstance<Haiku>();
             ((HaikuService)service).Update(entity, publishCode);
         }
 
-        [RouteAttribute("DELETE")]
-        [AcceptVerbs("DELETE")]
+        [HttpDelete]
+        [Route("{id}")]
         public void Delete([FromUri]long id)
         {
             var publishCode = base.GettingPublishCode();

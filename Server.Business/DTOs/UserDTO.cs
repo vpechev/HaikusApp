@@ -13,6 +13,7 @@ namespace Server.Business.DAOs
         //public string PublishCode { get; set; }
         //public IList<HaikuDAO> Haikus { get; set; }
         public double ActualRating {get; set; }
+        public bool IsVip { get; set; }
 
         public UserDTO(User u)
         {
@@ -20,6 +21,7 @@ namespace Server.Business.DAOs
             this.IsDeleted = u.IsDeleted;
             this.Username = u.Username;
             this.ActualRating = u.ActualRating;
+            this.IsVip = u.IsVip;
         }
 
         public static IList<UserDTO> CovertToUserDTO(IList<User> list)

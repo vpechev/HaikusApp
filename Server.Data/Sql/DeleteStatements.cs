@@ -16,11 +16,11 @@ namespace Server.Data.Sql
 
         public const string DeleteAllHaikusByUserIdWithRatingRecalculatingQuery = @"BEGIN TRAN
                                                                                     " + DeleteHaikusByUserId + @"
-                                                                                    UPDATE [dbo].[Users] SET [RatingValue] = 0, [RatersCount] = 0 WHERE UserId = @UserId
+                                                                                    UPDATE [dbo].[Users] SET [RatingValue] = 0, [RatersCount] = 0 WHERE [Id] = @UserId
                                                                                     COMMIT TRAN";
 
         private const string DeleteHaikusByUserId = " UPDATE [dbo].[Haikus] SET [IsDeleted] = 1 WHERE [UserId] = @UserId; ";
 
-        public static readonly string DeleteUserWithHaikusByUserId = "BEGIN TRAN" + DeleteUserByIdQuery + DeleteHaikusByUserId + "COMMIT TRAN";
+        public static readonly string DeleteUserWithHaikusByUserId = "BEGIN TRAN DECLARE @UserId BIGINT=@Id; " + DeleteUserByIdQuery + DeleteHaikusByUserId + "COMMIT TRAN";
     }
 }
