@@ -53,6 +53,20 @@
                 @*<a href="../haikus/all?skip=@skip&take=@take">Next Page</a>*@
                 @Html.ActionLink(" Next Page ", "All", "Users", new { skip = ViewBag.Skip + ViewBag.Take, take = ViewBag.Take }, null)
             }
+            
+            <div>
+                <div>
+                    Sort by:
+                    @Html.ActionLink("Username", "All", "Users", new { skip = 0, take = 10, sortingValue = 0, sortingOrder = ViewBag.SortingOrder }, null)
+                    @Html.ActionLink("Rating", "All", "Users", new { skip = 0, take = 10, sortingValue = 1, sortingOrder = ViewBag.SortingOrder }, null)
+                </div>
+                <div>
+                    Sorting order:
+                    @Html.ActionLink("ASC", "All", "Users", new { skip = 0, take = 10, sortingValue = ViewBag.SortingValue, sortingOrder = 0 }, null)
+                    @Html.ActionLink("DESC", "All", "Users", new { skip = 0, take = 10, sortingValue = ViewBag.SortingValue, sortingOrder = 1 }, null)
+                </div>
+            </div>
+
         </tbody>
     </table>
 </div>

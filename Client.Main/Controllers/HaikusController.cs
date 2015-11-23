@@ -43,22 +43,39 @@ namespace Client.Main.Controllers
         {
             ViewBag.Skip = skip;
             ViewBag.Take = take;
+            ViewBag.SortingValue = sortingValue;
+            ViewBag.SortingOrder = sortingOrder;
             
-            return this.View("index", await base.Get<Haiku>(ControllerName, skip, take, sortingValue, sortingOrder));
+            var result = await base.Get<Haiku>(ControllerName, skip, take, sortingValue, sortingOrder);
+            if(sortingValue == 1){
+                if(sortingOrder == 0)
+                    result = result.OrderBy(x=>x.ActualRating);
+                else
+                    result = result.OrderByDescending(x=>x.ActualRating);
+            }
+
+            return this.View("index", result);
         }
 
 
-        public async Task<ActionResult> UpdateForm(int id)
+        public async Task<ActionResult> UpdateForm(int id, string publishCode)
         {
             Haiku h = await base.GetByIdAsync<Haiku>(ControllerName, id);
+            h.PublishCode = publishCode;
             return this.View("UpdateForm", h);            
         }
 
         public async Task<ActionResult> Update(int id, string publishCode, Haiku entity)
         {
+            entity.Date = DateTime.Now;
 
-            await base.Update<Haiku>("haikus", publishCode, entity);
-            return this.View(await base.GetByIdAsync<Haiku>(ControllerName, id));
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Add("publishKey", publishCode);
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                await httpClient.PutAsJsonAsync(string.Format(uriFormatBase, ControllerName), entity);
+                return this.RedirectToAction("Details", ControllerName, new { entity.Id });
+            }
         }
 
         public async Task<ActionResult> Delete(int id, string publishCode)

@@ -8,7 +8,7 @@ namespace Server.Business.Enums
 {
     public enum HaikuSortBy
     {
-        Id,
-        RatingValue
+        Id = 0,
+        RatingValue = 1
     }
 }

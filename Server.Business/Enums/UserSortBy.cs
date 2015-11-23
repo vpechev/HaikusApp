@@ -8,7 +8,7 @@ namespace Server.Business.Enums
 {
     public enum UserSortBy
     {
-        UserName,
-        RatingValue
+        UserName = 0,
+        RatingValue = 1
     }
 }

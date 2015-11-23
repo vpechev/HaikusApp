@@ -10,7 +10,6 @@ namespace Client.Main.Controllers
     {
         public ActionResult Error(int? id)
         {
-
             return View();
         }
     }

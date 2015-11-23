@@ -24,8 +24,27 @@ namespace Client.Main.Controllers
         {
             ViewBag.Skip = skip;
             ViewBag.Take = take;
+            ViewBag.SortingValue = sortingValue;
+            ViewBag.SortingOrder = sortingOrder;
 
-            return this.View(await base.Get<User>(ControllerName, skip, take, sortingValue, sortingOrder));
+            var results = await base.Get<User>(ControllerName, skip, take, sortingValue, sortingOrder);
+            if (sortingValue == 1)
+            {
+                if (sortingOrder == 0)
+                {
+                    var vips = results.Where(a => a.IsVip).ToList().OrderBy(a => a.ActualRating).ToList();
+                    var novips = results.Where(a => !(a.IsVip)).ToList().OrderBy(a => a.ActualRating).ToList(); ;
+                    results = vips.Concat(novips);
+                }
+                else
+                {
+                    var vips = results.Where(a => a.IsVip).ToList().OrderByDescending(a => a.ActualRating).ToList();
+                    var novips = results.Where(a => !(a.IsVip)).ToList().OrderByDescending(a => a.ActualRating).ToList(); ;
+                    results = vips.Concat(novips);
+                }
+            }
+
+            return this.View(results);
         }
 
         public async Task<ActionResult> PromoteToVIP(long id, string publishKey)

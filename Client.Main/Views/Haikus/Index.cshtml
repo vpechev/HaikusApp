@@ -48,21 +48,34 @@
                 </tr>
             }
             
-            
-            @if (ViewBag.Skip > 0)
-            {
-                var skip = ViewBag.Skip - ViewBag.Take;
-                var take = ViewBag.Take;
-                @*<a href="../haikus/all?skip=@skip&take=@take">Previous Page</a>*@
-                @Html.ActionLink(" Previous Page ", "All", "Haikus", new { skip = ViewBag.Skip - ViewBag.Take, take = ViewBag.Take }, null)
-            }
-            @if (Model.ToList().Count >= ViewBag.Take)
-            {
-                var skip = ViewBag.Skip + ViewBag.Take;
-                var take = ViewBag.Take;
-                @*<a href="../haikus/all?skip=@skip&take=@take">Next Page</a>*@
-                @Html.ActionLink(" Next Page ", "All", "Haikus", new { skip = ViewBag.Skip + ViewBag.Take, take = ViewBag.Take }, null)
-            }
+            <div>
+                @if (ViewBag.Skip > 0)
+                {
+                    var skip = ViewBag.Skip - ViewBag.Take;
+                    var take = ViewBag.Take;
+                    @*<a href="../haikus/all?skip=@skip&take=@take">Previous Page</a>*@
+                    @Html.ActionLink(" Previous Page ", "All", "Haikus", new { skip = ViewBag.Skip - ViewBag.Take, take = ViewBag.Take, sortingValue = ViewBag.SortingValue, sortingOrder = ViewBag.SortingOrder }, null)
+                }
+                @if (Model.ToList().Count >= ViewBag.Take)
+                {
+                    var skip = ViewBag.Skip + ViewBag.Take;
+                    var take = ViewBag.Take;
+                    @*<a href="../haikus/all?skip=@skip&take=@take">Next Page</a>*@
+                    @Html.ActionLink(" Next Page ", "All", "Haikus", new { skip = ViewBag.Skip + ViewBag.Take, take = ViewBag.Take, sortingValue = ViewBag.SortingValue, sortingOrder = ViewBag.SortingOrder }, null)
+                }
+            </div>
+            <div>
+                <div>
+                    Sort by: 
+                    @Html.ActionLink("First Created", "All", "Haikus", new { skip = 0, take = 10, sortingValue = 0, sortingOrder = ViewBag.SortingOrder }, null)
+                    @Html.ActionLink("Rating", "All", "Haikus", new { skip = 0, take = 10, sortingValue = 1, sortingOrder = ViewBag.SortingOrder }, null)
+                </div>
+                <div>
+                    Sorting order:
+                    @Html.ActionLink("ASC", "All", "Haikus", new { skip = 0, take = 10, sortingValue = ViewBag.SortingValue, sortingOrder = 0 }, null)
+                    @Html.ActionLink("DESC", "All", "Haikus", new { skip = 0, take = 10, sortingValue = ViewBag.SortingValue, sortingOrder = 1 }, null)
+                </div>
+            </div>
             
         </tbody>
     </table>

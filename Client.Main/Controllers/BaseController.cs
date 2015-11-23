@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Client.Main.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,14 +87,17 @@ namespace Client.Main.Controllers
             }
         }
 
-        protected async Task Update<T>(string controllerName, string publishCode, T entity) where T : class
-        {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                await httpClient.PutAsJsonAsync(string.Format(uriFormat, controllerName), entity);
-            }
-        }
+        //protected async Task<ActionResult> Update<T>(string controllerName, string publishCode, T entity) where T : Haiku
+        //{
+        //    using (HttpClient httpClient = new HttpClient())
+        //    {
+        //        httpClient.DefaultRequestHeaders.Add("publishKey", publishCode);
+        //        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //        await httpClient.PutAsJsonAsync(string.Format(uriFormatBase, controllerName), entity);
+        //        return this.RedirectToAction("Inxex", controllerName, new { entity.Id} );
+        //    }
+        //    return null;
+        //}
 
         protected async Task Delete<T>(string controllerName, string publishCode, long id) where T : class
         {
