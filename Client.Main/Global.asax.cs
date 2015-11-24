@@ -44,6 +44,10 @@ namespace Client.Main
 
             switch (httpException.GetHttpCode())
             {
+                case 401:
+                    routeData.Values.Add("action", "HttpError401");
+                    break;
+
                 case 403:
                     routeData.Values.Add("action", "HttpError403");
                     break;

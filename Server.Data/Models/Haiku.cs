@@ -27,6 +27,8 @@ namespace Server.Data.Models
         }
         public DateTime Date { get; set; }
 
+        public string Username { get; set; }
+
         private double computeActualRating()
         {
             return (double)RatingValue / RatersCount;

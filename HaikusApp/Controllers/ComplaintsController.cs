@@ -1,4 +1,5 @@
 ﻿using HaikusApp.Controllers.BaseClasses;
+using HaikusApp.Exceptions.Filters;
 using Server.Business.DI.Interfaces;
 using Server.Business.Managers;
 using Server.Business.Services;
@@ -12,6 +13,7 @@ using System.Web.Http;
 namespace HaikusApp.Controllers
 {
     [RoutePrefix("complaints")]
+    [CustomExceptionFilter]
     public class ComplaintsController : BaseController<Complaint>
     {
         public Complaint Post(Complaint entity)

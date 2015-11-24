@@ -24,5 +24,8 @@ namespace Server.Data.Sql
                                               ORDER BY filter, [OrderType] SortingOrder OFFSET @OffsetCount ROWS FETCH NEXT @FetchedElements ROWS ONLY";
 
         public const string SelectAllHaikusByUserId = "SELECT * FROM [dbo]." + TableNamesConstants.HaikuTableName + " WHERE [UserId] = @UserId AND [IsDeleted] = 0";
+
+        public const string SelectHaikuByIdQuery = "SELECT " + EntityColumnsConstants.HaikuColumns +", (SELECT Username FROM [dbo].[Users] u WHERE u.[Id] = h.[UserId]) as Username FROM [dbo]." 
+                                                    + TableNamesConstants.HaikuTableName + " h WHERE [Id] = @Id AND [IsDeleted] = 0";
     }
 }

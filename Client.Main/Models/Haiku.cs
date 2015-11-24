@@ -18,5 +18,6 @@ namespace Client.Main.Models
         public int Rating { get; set; }
 
         public string PublishCode { get; set; }
+        public string Username { get; set; }
     }
 }

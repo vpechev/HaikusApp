@@ -13,6 +13,8 @@ namespace Server.Business.DAOs
         public long UserId { get; set; }
         public IList<Rating> Ratings { get; set; }
         public double ActualRating { get; set; }
+        public DateTime Date { get; set; }
+        public string Username { get; set; }
 
         public HaikuDTO (Haiku h)
 	    {
@@ -21,7 +23,8 @@ namespace Server.Business.DAOs
             this.Text = h.Text;
             this.UserId = h.UserId;
             this.ActualRating = h.ActualRating;
-                
+            this.Date = h.Date;
+            this.Username = h.Username;    
 	    }
 
         public static IList<HaikuDTO> CovertToHaikuDTO(IList<Haiku> list)

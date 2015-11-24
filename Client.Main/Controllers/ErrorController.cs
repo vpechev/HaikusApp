@@ -12,5 +12,12 @@ namespace Client.Main.Controllers
         {
             return View();
         }
+
+        public ActionResult Error(string message)
+        {
+            if (String.IsNullOrEmpty(message))
+                return View();
+            return View("Error", message);
+        }
     }
 }

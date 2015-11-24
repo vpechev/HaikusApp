@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Client.Main.Controllers
 {
-    public class HomeController : BaseController
+    public class RegistersController : BaseController
     {
         public ActionResult Index()
         {
@@ -19,6 +19,7 @@ namespace Client.Main.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(User entity)
         {
             if (String.IsNullOrEmpty(entity.Username) || String.IsNullOrEmpty(entity.PublishCode))
@@ -30,7 +31,7 @@ namespace Client.Main.Controllers
                 var uri = string.Format(BaseController.uriFormatBase, "Users");
                 await httpClient.PostAsJsonAsync(uri, entity);
             }
-            return RedirectToAction("All", "Haikus");
+            return RedirectToAction("Index", "Haikus");
         }
 
 

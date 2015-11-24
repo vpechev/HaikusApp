@@ -5,59 +5,64 @@
 
 <h2>Haiku's Details</h2>
 
-
 <div class="row">
-    <div class="col col-lg-4"><h4>Content</h4></div>
-    <div class="col col-lg-8" id="haiku-text"> @Model.Text </div>
-</div>
-
-<div class="row">
-    <div class="col col-lg-6"><strong>Date:</strong> @Model.Date </div>
-</div>
-<div class="row">
-    <div class="col col-lg-6"><strong>Rating:</strong>@Math.Round(@Model.ActualRating,2)</div>
-</div>
-
-<div class="row">
-    <div>
-        @using (Html.BeginForm("Rating", "Haikus", new { }, FormMethod.Post, new { Id = "addhaiku" }))
+    <div class="col-lg-3">
+        @using (Html.BeginForm("Rating", "Haikus", new { }, FormMethod.Post, new { Id = "addhaiku"}))
         {
             @Html.AntiForgeryToken()
 
             <fieldset>
                 <legend>Haiku</legend>
                 <ol>
-                    <li>
+                    <li class="pull-left" style="margin-right: 10px;">
                         @{
-                            List<SelectListItem> listItems = new List<SelectListItem>();
-                            listItems.Add(new SelectListItem { Text = "1", Value = "1" });
-                            listItems.Add(new SelectListItem { Text = "2", Value = "2" });
-                            listItems.Add(new SelectListItem { Text = "3", Value = "3" });
-                            listItems.Add(new SelectListItem { Text = "4", Value = "4" });
-                            listItems.Add(new SelectListItem { Text = "5", Value = "5" });
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            listItems.Add(new SelectListItem { Text = "1", Value = "1" });
+            listItems.Add(new SelectListItem { Text = "2", Value = "2" });
+            listItems.Add(new SelectListItem { Text = "3", Value = "3" });
+            listItems.Add(new SelectListItem { Text = "4", Value = "4" });
+            listItems.Add(new SelectListItem { Text = "5", Value = "5" });
                         }
                         @Html.DropDownListFor(model => model.Rating, listItems, "Choose")
                         @Html.HiddenFor(model => model.Id)
                     </li>
-                    <li>
-                        <input type="submit" value="Rate!" />
+                    <li class="pull-left">
+                        <input type="submit" value="Rate!" class="btn btn-default"/>
                     </li>
                 </ol>
             </fieldset>
         }
     </div>
 
-    <div>
+    <div class="col-lg-3">
         @Html.ActionLink("Update", "Validate", "Publish", new { controllerName = "haikus", actionName = "updateForm", id = @Model.Id }, new { @class = "modal-box btn btn-warning" })
     </div>
-    <div>
+    <div class="col-lg-3">
         @Html.ActionLink("Add Complaint", "Complaints", "Haikus", new { id = @Model.Id }, new { @class = "btn btn-primary" })
     </div>
-    <div>
+    <div class="col-lg-3">
         @Html.ActionLink("Delete", "Validate", "Publish", new { controllerName = "haikus", actionName = "delete", id = @Model.Id }, new { @class = "modal-box btn btn-danger" })
     </div>
+    <div class="row" style="margin-top: 30px;">
+        <div class="col col-lg-12"><h4>Content</h4></div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col col-lg-12" id="haiku-text"> @Model.Text </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px;">
+        <div class="col col-lg-4"><strong>Date: </strong> @Model.Date </div>
+        <div class="col col-lg-4"><strong>Rating: </strong>@Math.Round(@Model.ActualRating, 2)</div>
+        <div class="col col-lg-4"><strong>User: </strong> <a href="../../users/details/@Model.UserId">@Model.Username</a></div>
+    </div>
+
     @*<div id="my-dialog"></div>*@
 </div>
+
+
+
+
+
 
 
 

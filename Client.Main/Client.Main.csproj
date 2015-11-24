@@ -203,7 +203,7 @@
     <Compile Include="Controllers\ComplaintsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HaikusController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegistersController.cs" />
     <Compile Include="Controllers\PublishController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\ValidateHttpAntiForgeryTokenAttribute.cs" />
@@ -348,7 +348,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Haikus\Index.cshtml" />
-    <Content Include="Views\Home\_Register.cshtml" />
+    <Content Include="Views\Registers\_Register.cshtml" />
     <Content Include="Views\Haikus\Details.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Shared\Authentication.cshtml" />

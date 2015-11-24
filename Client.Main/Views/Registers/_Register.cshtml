@@ -1,6 +1,6 @@
 ﻿@model Client.Main.Models.User
 
-@using (Html.BeginForm("Register", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { Id = "registerForm" }))
+@using (Html.BeginForm("Register", "Registers", FormMethod.Post, new { Id = "registerForm" }))
 {
     @Html.AntiForgeryToken()
 

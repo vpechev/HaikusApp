@@ -51,6 +51,8 @@ namespace Server.Data.Repositories
         public string UpdateCompliantByHaikuIdQuery { get { return Sql.UpdateStatements.UpdateCompliantByHaikuIdQuery; } }
 
         public string DeleteHaikusByUserIdQuery { get { return Sql.DeleteStatements.DeleteAllHaikusByUserIdWithRatingRecalculatingQuery; } }
+        
+        public override string SelectByIdQuery { get { return Sql.SelectStatements.SelectHaikuByIdQuery; } }
 
         public override string TableName { get { return "Haikus"; } }
 

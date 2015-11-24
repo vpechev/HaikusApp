@@ -4,11 +4,20 @@
 }
 
 <div>
-    <div><h2>Username:</h2> @Model.Username  </div>
-    <div><strong>Rating:</strong> @Math.Round(@Model.ActualRating, 2)</div>
-    <div><strong>VIP Status:</strong> @if(Model.IsVip){ <span>Yes</span> }else{ <span>No</span> }</div>
-    
-    <div>
+    <div class="row">
+        <h4 class="col-lg-2">Username: </h4> 
+        <h5 class="col-lg-3">@Model.Username</h5>
+    </div>
+    <div class="row">
+        <div class="col col-lg-6"><strong>Rating: </strong> @Math.Round(@Model.ActualRating, 2)</div>
+        <div class="col col-lg-6"><strong>VIP Status: </strong> @if(Model.IsVip){ <span>Yes</span> }else{ <span>No</span> }</div>
+    </div>
+    <div class="row" style="margin-top: 20px; ">
+        @Html.ActionLink("Make VIP", "Validate", "Publish", new { controllerName = "users", actionName = "PromoteToVIP", id = @Model.Id }, new { @class = "modal-box btn btn-success col-lg-3 white ", @style = "margin-left: 10px; margin-right: 20px;" })
+        @Html.ActionLink("Delete all Haikus", "Validate", "Publish", new { controllerName = "haikus", actionName = "DeleteAllHaikus" }, new { @class = "modal-box btn btn-danger col-lg-3 white ", @style = "margin-right: 20px;" })
+        @Html.ActionLink("Delete user with all haikus", "Validate", "Publish", new { controllerName = "users", actionName = "Delete", id = @Model.Id }, new { @class = "modal-box btn btn-danger col-lg-3 white " })
+    </div>
+
         @if (Model.Haikus != null && Model.Haikus.Count > 0)
         {
             <h3>Haikus: </h3>
@@ -44,14 +53,6 @@
                 </tbody>
             </table>
         }
-    </div>
-
-    @*@if(!Model.IsVip){*@
-        @Html.ActionLink("Make VIP", "Validate", "Publish", new { controllerName = "users", actionName = "PromoteToVIP", id = @Model.Id }, new { @class = "modal-box btn btn-success" })
-    @* } *@
-
-    @Html.ActionLink("Delete all Haikus", "Validate", "Publish", new { controllerName = "haikus", actionName = "DeleteAllHaikus" }, new { @class = "modal-box btn btn-danger" })
-    @*@Html.ActionLink("Delete user", "Validate", "Publish", new { controllerName = "users", actionName = "PromoteToVIP", id = @Model.Id }, new { @class = "modal-box btn btn-danger" })*@
-    @Html.ActionLink("Delete user with all haikus", "Validate", "Publish", new { controllerName = "users", actionName = "Delete", id = @Model.Id }, new { @class = "modal-box btn btn-danger" })
+    
 
 </div>

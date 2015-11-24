@@ -32,9 +32,10 @@ namespace Server.Logging
 
         public static void Error(string message, Exception exception)
         {
-            try 
+            try
             {
                 databaseLogger.Log(LogLevel.Error, message, exception, DateTime.UtcNow);
+                fileLogger.Log(LogLevel.Error, message, exception, DateTime.UtcNow);
             }
             catch (SqlException sqlEx)
             {
