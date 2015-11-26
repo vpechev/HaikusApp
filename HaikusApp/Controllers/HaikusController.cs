@@ -1,5 +1,6 @@
 ﻿using HaikusApp.Controllers.BaseClasses;
 using HaikusApp.Exceptions.Filters;
+using HaikusApp.Filters;
 using Server.Business.DAOs;
 using Server.Business.DI.Interfaces;
 using Server.Business.Enums;
@@ -21,11 +22,11 @@ namespace HaikusApp.Controllers
     public class HaikusController : BaseController<Haiku>
     {
         [HttpPost]
+        [AuthFilter]
         public Haiku Post(Haiku entity)
         {
-            var publishCode = base.GettingPublishCode();
             IBaseService<Haiku> service = ServiceManager.GetServiceManager().CreateInstance<Haiku>();
-            return ((HaikuService)service).Add(entity, publishCode);
+            return ((HaikuService)service).Add(entity, base.GettingPublishCode());
         }
 
         [HttpPost]

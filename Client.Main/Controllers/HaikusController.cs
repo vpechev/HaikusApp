@@ -20,7 +20,6 @@ namespace Client.Main.Controllers
         {
             //ViewBag.ReturnUrl = returnUrl;
             return await All(0, 10, 0, 0);
-
         }
 
         public ActionResult RedirectToAddHaiku()
@@ -54,7 +53,7 @@ namespace Client.Main.Controllers
                     result = result.OrderByDescending(x=>x.ActualRating);
             }
 
-            return this.View("index", result);
+             return this.View("index", result);
         }
 
 

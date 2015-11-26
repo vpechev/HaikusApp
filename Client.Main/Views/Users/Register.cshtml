@@ -1,0 +1,20 @@
+﻿@model Client.Main.Models.User
+
+@using (Html.BeginForm("Add", "Users", new { Id = "registerForm2" }))
+{
+    <fieldset>
+        <legend>Registration Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Username)
+                @Html.TextBoxFor(m => m.Username, new { id = "regName" })
+
+                @Html.LabelFor(m => m.PublishCode)
+                @Html.TextBoxFor(m => m.PublishCode, new { id = "regCode" })
+            </li>
+            <li>
+                <input type="submit" value="Register!" />
+            </li>
+        </ol>
+    </fieldset>
+}

@@ -15,6 +15,27 @@ namespace Client.Main.Controllers
         //
         // GET: /Haikus/
 
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Add(User entity)
+        {
+            if (String.IsNullOrEmpty(entity.Username) || String.IsNullOrEmpty(entity.PublishCode))
+            {
+                return null;
+            }
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var uri = string.Format(BaseController.uriFormatBase, "Users");
+                await httpClient.PostAsJsonAsync(uri, entity);
+            }
+            return RedirectToAction("Index", "Haikus");
+
+        }
+
         public async Task<ActionResult> Details(long id)
         {
             return this.View(await base.GetByIdAsync<User>(ControllerName, id));

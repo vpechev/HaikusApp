@@ -38,8 +38,8 @@
         </div>
         <div>
             <strong>Sorting order:</strong>
-    @Html.ActionLink("---ASC---", "All", "Users", new { skip = 0, take = 10, sortingValue = ViewBag.SortingValue, sortingOrder = 0 }, new { @class = "glyphicon glyphicon-arrow-up" })
-    @Html.ActionLink("---DESC---", "All", "Users", new { skip = 0, take = 10, sortingValue = ViewBag.SortingValue, sortingOrder = 1 }, new { @class = "glyphicon glyphicon-arrow-down" })
+    @Html.ActionLink("ASC", "All", "Users", new { skip = 0, take = 10, sortingValue = ViewBag.SortingValue, sortingOrder = 0 }, new { @class = "glyphicon glyphicon-arrow-up" })
+    @Html.ActionLink("DESC", "All", "Users", new { skip = 0, take = 10, sortingValue = ViewBag.SortingValue, sortingOrder = 1 }, new { @class = "glyphicon glyphicon-arrow-down" })
 </div>
     </div>
 

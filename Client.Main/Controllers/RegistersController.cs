@@ -15,12 +15,10 @@ namespace Client.Main.Controllers
     {
         public ActionResult Index()
         {
-            return View("_Register");
+            return View();
         }
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(User entity)
+
+        public async Task<ActionResult> Index(User entity)
         {
             if (String.IsNullOrEmpty(entity.Username) || String.IsNullOrEmpty(entity.PublishCode))
             {
@@ -31,10 +29,13 @@ namespace Client.Main.Controllers
                 var uri = string.Format(BaseController.uriFormatBase, "Users");
                 await httpClient.PostAsJsonAsync(uri, entity);
             }
-            return RedirectToAction("Index", "Haikus");
+            return View();
+            
         }
 
+     
 
-        
+
+
     }
 }

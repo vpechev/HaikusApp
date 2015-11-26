@@ -88,3 +88,21 @@ Message: Missing item
 SqlException stack trace: 
 
 
+Date: 2015/11/26 10:28:49 
+Stacktrace: ExceptionFilterAttribute.OnExceptionAsync => CustomExceptionFilterAttribute.OnException => LogErrorWatcher.Error 
+Message: Missing item 
+SqlException stack trace: 
+
+
+Date: 2015/11/26 10:33:07 
+Stacktrace: ExceptionFilterAttribute.OnExceptionAsync => CustomExceptionFilterAttribute.OnException => LogErrorWatcher.Error 
+Message: Missing item 
+SqlException stack trace: 
+
+
+Date: 2015/11/26 10:34:01 
+Stacktrace: ExceptionFilterAttribute.OnExceptionAsync => CustomExceptionFilterAttribute.OnException => LogErrorWatcher.Error 
+Message: Missing item 
+SqlException stack trace: 
+
+
